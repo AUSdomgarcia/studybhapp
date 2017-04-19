@@ -1,7 +1,7 @@
 @extends('cms.templates.cms_template')
 
-@section('page-title', 'CMS | Generic')
+@section('page-title', 'CMS | Inner Page')
 
 @section('content')
-	Hello content
+	page awesome
 @endsection

@@ -24,11 +24,18 @@ Route::group(['prefix' => 'admin'], function(){
 	Auth::routes();
 	
 	Route::group(['middleware' => 'auth'], function(){
+
 		Route::get('/', function() {
 			return redirect('/admin/login');
 		});
+
 		Route::get('/dashboard', function() { 
 			return view('cms.pages.dashboard');
 		});
+
+		Route::get('/page1', function() { 
+			return view('cms.pages.page1');
+		});
+
 	});
 });

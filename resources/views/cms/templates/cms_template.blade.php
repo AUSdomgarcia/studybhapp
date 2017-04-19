@@ -41,7 +41,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <link href="{{ asset('admin_assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css"/>
 
-@yield('styles')
 
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
@@ -63,18 +62,11 @@ License: You must have a valid license purchased only from themeforest(the above
       margin-right: 2px;
   }
 </style>
+
+@yield('styles')
+
 </head>
-<!-- END HEAD -->
-<!-- BEGIN BODY -->
-<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
-<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
-<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
-<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
-<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
-<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
-<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
-<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
-<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+
 <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
@@ -87,13 +79,78 @@ License: You must have a valid license purchased only from themeforest(the above
 			<div class="menu-toggler sidebar-toggler hide">
 			</div>
 		</div>
-		@yield('top-nav')
+		
+        @if( \Request::route()->getName() != 'login' )
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-quick-sidebar-toggler">
+                        <a href="{{ route('logout') }}" class="dropdown-toggle"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                            <i class="icon-logout"></i>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @endif
+
 	</div>
 </div>
 
 <div class="clearfix"></div>
 
-@yield('side-nav')
+
+@if( \Request::route()->getName() != 'login' )
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 46px">
+                <li class="sidebar-toggler-wrapper hide">
+                    <div class="sidebar-toggler">
+                        <span></span>
+                    </div>
+                </li>
+                
+                <li class="nav-item start ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-home"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item start ">
+                            <a href="/admin/page1" class="nav-link ">
+                                <i class="icon-bar-chart"></i>
+                                <span class="title">Dashboard 1</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="heading">
+                    <h3 class="uppercase">Features</h3>
+                </li>
+
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-diamond"></i>
+                        <span class="title">UI Features</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="ui_metronic_grid.html" class="nav-link ">
+                                <span class="title">Metronic Grid System</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+@endif
 
 <div class="{{ \Request::route()->getName() == 'login' ? 'page-container' : 'page-content-wrapper' }}" style="padding-top: 46px !important;">
     <div class="{{ \Request::route()->getName() == 'login' ? '' : 'page-content' }}">
