@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin'], function(){
 			return redirect('/admin/login');
 		});
 		Route::get('/dashboard', function() { 
-			return view('home');
+			return view('cms.pages.dashboard');
 		});
 	});
 });
