@@ -77,9 +77,9 @@
 											<i class="fa fa-trash cursor-pointer delete-user"></i>
 
 											@if($user->locked == 0)
-												<i class="fa fa-unlock " style="color: gray;cursor: not-allowed"></i>
-											@else
 												<i class="fa fa-unlock cursor-pointer unlock-user-modal"></i>
+											@else
+												<i class="fa fa-unlock " style="color: gray;cursor: not-allowed"></i>
 											@endif
 											
 										</td>
@@ -282,7 +282,9 @@
 		    $("body").on("click",".edit-user",function(){
 		    	var data_id = $(this).closest("tr").attr("data-id");
 		    	var dialog = $("#user-settings");
+
 		    	dialog.modal();
+
 		    	Metronic.blockUI({
 		            target: $("body"),
 		            animate: true,
@@ -300,6 +302,7 @@
 		    				dialog.find("#user-email").val(data['email']).attr("readonly",true);
 		    				dialog.find("#user-name").val(data['name']);
 		    				dialog.find("#user-role").val(data['role_id']);
+
 		    				Metronic.unblockUI($("body"));
 		    			}catch(e){
 		    				console.log(e)
@@ -350,7 +353,7 @@
 		    			"user-id":data_id,
 		    			"_token" : $("#site_token").val()
 		    	},function(data){
-		    		// toastr['success']("", "User has been deleted.");
+		    		toastr['success']("", "User has been Unlocked.");
 		    		window.location.reload(true);
 		    	})
 		    })

@@ -115,17 +115,19 @@ class UserSettingsController extends Controller
     public function update(Request $request)
     {
         $rule = [
-            'user-name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'user-name' => 'required|alpha_spaces',
             'user-role' => 'required',
             'user-password' => array(
                                   'min:8',
-                                  'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',
+                                  'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',//'regex:/^(?=.*[a-z])(?=.*\d).+$/', //regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
                                   'same:user-cpassword',
                                   'different:user-email',
                                   'required_with:user-cpassword'
                             ),
             'user-cpassword' => 'required_with:user-password'
         ];
+
+        // Still debugging on this one.
 
         $friendly_names = [
             'user-name' => 'name',
@@ -136,6 +138,7 @@ class UserSettingsController extends Controller
         ];
 
         $validator = Validator::make($request->all(),$rule);
+
         $validator->setAttributeNames($friendly_names);
 
         if($validator->fails()){
@@ -172,7 +175,8 @@ class UserSettingsController extends Controller
 
     public function unlock(Request $request){
         $user = User::where('id','=', $request->input('user-id'))->first();
-        $this->resetAttempts($user);
+        // $this->resetAttempts($user);
+        Session::flash('success', '1');
         return $request->all();
     }
 }
