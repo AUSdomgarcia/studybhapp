@@ -14,6 +14,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'users';
+    
     protected $fillable = [
         'name', 'email', 'password',
     ];
@@ -27,52 +29,38 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany("App\\Role");
+        return $this->hasOne('App\Role', 'id', 'role_id');
     }
 
-    public function isEmployee() 
+    public function hasRole($roles)
     {
-        return ($this->roles()->count()) ? true : false;
-    }
-
-    public function hasRole($role)
-    {
-        return $this->roles->pluck("name")->contains($role);
-    }
-
-    private function getIdInArray($array, $term)
-    {
-        foreach ($array as $key => $value){
-            if($value == $term){
-                return $key;
-                dd($key);
+        $this->have_role = $this->getUserRole();
+        
+        if($this->have_role->name == 'Administrators') {
+            return true;
+        }
+        
+        if(is_array($roles)){
+            foreach($roles as $need_role){
+                if($this->checkIfUserHasRole($need_role)) {
+                    return true;
+                }
             }
+        } else{
+            return $this->checkIfUserHasRole($roles);
         }
-        // throw new \UnexpectedValueException('ss');
+        return false;
     }
 
-    public function makeEmployee($title)
-    {   
-        $assigned_roles = array();
-        $roles = Role::all()->pluck("name", "id");
+    private function getUserRole()
+    {
+        return $this->role()->getResults();
+    }
 
-        switch($title) {
-            case 'super_admin':
-                $assigned_roles[] = $this->getIdInArray($roles, 'create');
-                $assigned_roles[] = $this->getIdInArray($roles, 'update');
-            case 'admin':
-                $assigned_roles[] = $this->getIdInArray($roles, 'delete');
-                $assigned_roles[] = $this->getIdInArray($roles, 'ban');
-            case 'moderator':
-                $assigned_roles[] = $this->getIdInArray($roles, 'kickass');
-                $assigned_roles[] = $this->getIdInArray($roles, 'lemon');
-                break;
-            default:
-                throw new \Exception("The employee status entered does not exists");
-        }
-
-        $this->roles()->sync($assigned_roles);
+    private function checkIfUserHasRole($need_role)
+    {
+        return (strtolower($need_role)==strtolower($this->have_role->name)) ? true : false;
     }
 }

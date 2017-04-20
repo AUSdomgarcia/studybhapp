@@ -52,6 +52,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{ asset('admin_assets/admin/layout/css/layout.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('admin_assets/admin/layout/css/themes/darkblue.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="{{ asset('admin_assets/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('admin_assets/custom/custom.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 <style>
@@ -68,11 +69,14 @@ License: You must have a valid license purchased only from themeforest(the above
 </head>
 
 <body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
+
+<input type="hidden" name="_token" id="site_token" value="{{ csrf_token() }}" />
+
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<div style="margin: 10px;font-size: 20px;color:#FFF" class="logo-default">Generic</div>
+			<div style="margin: 10px;font-size: 20px;color:#FFF" class="logo-default">GENERIC | CMS</div>
 			<!-- <a href="index.html"> -->
 			<!-- <img src="{{ asset('admin_assets/admin/layout/img/logo.png') }}" alt="logo" class="logo-default"/> -->
 			<!-- </a> -->
@@ -83,6 +87,12 @@ License: You must have a valid license purchased only from themeforest(the above
         @if( \Request::route()->getName() != 'login' )
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-user">
+                        <a href="#" class="dropdown-toggle"> <!--http://beloacne.dev/admin/user_profile-->
+                            <span class="username username-hide-on-mobile">{{ Auth::user()->name }}</span>
+                        </a>
+                    </li>
+
                     <li class="dropdown dropdown-quick-sidebar-toggler">
                         <a href="{{ route('logout') }}" class="dropdown-toggle"
                             onclick="event.preventDefault();
@@ -107,46 +117,80 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="page-sidebar-wrapper">
         <div class="page-sidebar navbar-collapse collapse">
             <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 46px">
-                <li class="sidebar-toggler-wrapper hide">
-                    <div class="sidebar-toggler">
-                        <span></span>
-                    </div>
+                <li class="sidebar-toggler-wrapper">
+                    <div class="sidebar-toggler"></div>
                 </li>
-                
+
+                <li class="heading">
+                    <h3 class="uppercase">Website Content</h3>
+                </li>
+
                 <li class="nav-item start ">
                     <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-home"></i>
-                        <span class="title">Dashboard</span>
+                        <i class="icon-docs"></i>
+                        <span class="title">Pages</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item start ">
                             <a href="/admin/page1" class="nav-link ">
-                                <i class="icon-bar-chart"></i>
-                                <span class="title">Dashboard 1</span>
+                                <span class="title">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start ">
+                            <a href="/admin/page1" class="nav-link ">
+                                <span class="title">About</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start ">
+                            <a href="/admin/page1" class="nav-link ">
+                                <span class="title">FAQ</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-puzzle"></i>
+                        <span class="title">Website Content</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <span class="title">Default Setting</span>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="heading">
-                    <h3 class="uppercase">Features</h3>
+                    <h3 class="uppercase">User Setting</h3>
                 </li>
 
-                <li class="nav-item  ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-diamond"></i>
-                        <span class="title">UI Features</span>
-                        <span class="arrow"></span>
+                <!-- Admin -->
+                <li class=" nav-item">
+                        <a href="javascript:;">
+                            <i class="icon-settings"></i>
+                            <span class="title">Admin</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item ">
+                                <a href="{{ url('admin/user_settings') }}">User Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                <!-- My Account -->
+                <li class="">
+                    <a href="#">
+                        <i class="icon-user"></i>
+                        <span class="title">My Account</span>
                     </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item  ">
-                            <a href="ui_metronic_grid.html" class="nav-link ">
-                                <span class="title">Metronic Grid System</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
+
             </ul>
         </div>
     </div>
@@ -241,8 +285,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	});
 </script>
 
-@yield('script')
-<!-- END JAVASCRIPTS -->
+@yield('scripts')
+
 </body>
-<!-- END BODY -->
+
 </html>

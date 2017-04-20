@@ -1,6 +1,6 @@
 @extends('cms.templates.cms_template')
 
-@section('page-title', 'CMS | Generic')
+@section('page-title', 'CMS | Login')
 
 @section('styles')
 	<link href="{{ asset('admin_assets/admin/pages/css/login.css') }}" rel="stylesheet" type="text/css"/>
