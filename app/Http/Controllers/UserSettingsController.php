@@ -44,7 +44,7 @@ class UserSettingsController extends Controller
     public function store(Request $request)
     {
         $rule = [
-            'user-name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'user-name' => 'required|alpha_spaces',
             'user-email' => 'required|email|unique:users,email',
             'user-role' => 'required',
             'user-password' => array(
@@ -121,10 +121,10 @@ class UserSettingsController extends Controller
                                   'min:8',
                                   'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',//'regex:/^(?=.*[a-z])(?=.*\d).+$/', //regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
                                   'same:user-cpassword',
-                                  'different:user-email',
-                                  'required_with:user-cpassword'
+                                  'required_with:user-cpassword|string|nullable'
+                                  // 'different:user-email',
                             ),
-            'user-cpassword' => 'required_with:user-password'
+            'user-cpassword' => 'required_with:user-password|string|nullable'
         ];
 
         // Still debugging on this one.

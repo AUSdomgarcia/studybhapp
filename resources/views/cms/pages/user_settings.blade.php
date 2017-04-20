@@ -292,7 +292,9 @@
 		        });
 
 		    	dialog.find(".modal-title").text("Edit User");
+
 		    	dialog.find("#user-form-save").attr("action","{{ url('admin/user_settings/update') }}");
+		    	
 		    	dialog.find(".toggle-required").hide();
 
 		    	$.get("/admin/user_settings/show/"+data_id,
