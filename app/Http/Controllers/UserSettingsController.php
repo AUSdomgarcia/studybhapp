@@ -119,7 +119,7 @@ class UserSettingsController extends Controller
             'user-role' => 'required',
             'user-password' => array(
                                   'min:8',
-                                  'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',//'regex:/^(?=.*[a-z])(?=.*\d).+$/', //regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
+                                  'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',
                                   'same:user-cpassword',
                                   'required_with:user-cpassword|string|nullable'
                                   // 'different:user-email',
