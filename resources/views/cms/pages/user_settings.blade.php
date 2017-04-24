@@ -7,6 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}">
 	<link href="{{ asset('admin_assets/custom/custom.css') }}" rel="stylesheet" type="text/css"/>
+
+	<style type="text/css">
+		i[disabled] {
+		    cursor:not-allowed;
+		    color: gray;
+		}
+	</style>
 @endsection
 
 @section('content')
@@ -70,18 +77,14 @@
 							<tbody>
 								@foreach($users as $user)
 							        <tr data-id="{{ $user->id }}">
-										<td style="text-align: center;">
-											
+										<td class="text-center">
 											<i class="fa fa-edit cursor-pointer edit-user"></i> 
-											
 											<i class="fa fa-trash cursor-pointer delete-user"></i>
-
 											@if($user->locked == 0)
-												<i class="fa fa-unlock cursor-pointer unlock-user-modal"></i>
+												<i class="fa fa-unlock" disabled></i>
 											@else
-												<i class="fa fa-unlock " style="color: gray;cursor: not-allowed"></i>
+												<i class="fa fa-lock cursor-pointer unlock-user-modal"></i>
 											@endif
-											
 										</td>
 										
 										<td> {{ $user->email }}</td>
