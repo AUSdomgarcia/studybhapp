@@ -41,7 +41,7 @@
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<div style="margin: 10px;font-size: 20px;color:#FFF" class="logo-default">GENERIC | CMS</div>
+			<div style="margin: 10px;font-size: 20px;color:#FFF" class="logo-default">CMS</div>
 			<!-- <a href="index.html"> -->
 			<!-- <img src="{{ asset('admin_assets/admin/layout/img/logo.png') }}" alt="logo" class="logo-default"/> -->
 			<!-- </a> -->
@@ -81,6 +81,7 @@
     <div class="page-sidebar-wrapper">
         <div class="page-sidebar navbar-collapse collapse">
             <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 46px">
+                
                 <li class="sidebar-toggler-wrapper">
                     <div class="sidebar-toggler"></div>
                 </li>
@@ -89,67 +90,88 @@
                     <h3 class="uppercase">Website Content</h3>
                 </li>
 
-                <li class="nav-item start ">
+                @if(Auth::user()->role_id == 3)
+                <li class="nav-item start @if(strpos(Request::url(),'inquiry')) open active @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-docs"></i>
-                        <span class="title">Pages</span>
-                        <span class="arrow"></span>
+                        <span class="title">Inquiry</span>
+                        <span class="arrow @if(strpos(Request::url(),'inquiry')) open @endif"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item start ">
-                            <a href="/admin/page1" class="nav-link ">
-                                <span class="title">Home</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="/admin/page1" class="nav-link ">
-                                <span class="title">About</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="/admin/page1" class="nav-link ">
-                                <span class="title">FAQ</span>
+                        <li class="nav-item start @if(strpos(Request::url(),'inquiry')) active @endif">
+                            <a href="/admin/inquiry" class="nav-link ">
+                                <span class="title">Inbox</span>
                             </a>
                         </li>
                     </ul>
                 </li>
+                @endif
 
-                <li class="nav-item  ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-puzzle"></i>
-                        <span class="title">Website Content</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item  ">
-                            <a href="#" class="nav-link ">
-                                <span class="title">Default Setting</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="heading">
-                    <h3 class="uppercase">User Setting</h3>
-                </li>
-
-                <!-- Admin -->
-                <li class=" nav-item">
+                @if(Auth::user()->role_id != 3)
+                    <!--Pages-->
+                    <li class="nav-item start @if(strpos(Request::url(),'pages')) open active @endif">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-docs"></i>
+                            <span class="title">Pages</span>
+                            <span class="arrow @if(strpos(Request::url(),'pages')) open @endif"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start @if(strpos(Request::url(),'news')) active @endif">
+                                <a href="/admin/pages/news" class="nav-link ">
+                                    <span class="title">News</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start @if(strpos(Request::url(),'about')) active @endif">
+                                <a href="/admin/pages/about" class="nav-link ">
+                                    <span class="title">About</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start @if(strpos(Request::url(),'faq')) active @endif">
+                                <a href="/admin/pages/faq" class="nav-link ">
+                                    <span class="title">FAQ</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--Landing Page-->
+                    <li class="nav-item @if(strpos(Request::url(),'homepage_default')) open active @endif">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-puzzle"></i>
+                            <span class="title">Website Content</span>
+                            <span class="arrow @if(strpos(Request::url(),'homepage_default')) open @endif"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item  @if(strpos(Request::url(),'homepage_default')) active @endif">
+                                <a href="/admin/homepage_default" class="nav-link ">
+                                    <span class="title">Landing Page (Default)</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                
+                @if(Auth::user()->role_id == 1)
+                    <!-- Admin Accounts -->
+                    <li class="heading">
+                        <h3 class="uppercase">User Setting</h3>
+                    </li>
+                    <li class=" nav-item @if(strpos(Request::url(),'user_settings')) open active @endif"> 
                         <a href="javascript:;">
                             <i class="icon-settings"></i>
                             <span class="title">Admin</span>
-                            <span class="arrow"></span>
+                            <span class="arrow @if(strpos(Request::url(),'user_settings')) open @endif"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item ">
+                            <li class="nav-item @if(strpos(Request::url(),'user_settings')) active @endif">
                                 <a href="{{ url('admin/user_settings') }}">User Settings</a>
                             </li>
                         </ul>
                     </li>
+                @endif
 
-                <!-- My Account -->
-                <li class="">
-                    <a href="#">
+                <!-- Current User Account -->
+                <li class="@if(strpos(Request::url(),'my_account')) active @endif">
+                    <a href="/admin/my_account">
                         <i class="icon-user"></i>
                         <span class="title">My Account</span>
                     </a>

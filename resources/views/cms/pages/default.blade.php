@@ -3,5 +3,5 @@
 @section('page-title', 'CMS | Inner Page')
 
 @section('content')
-	page awesome
+	Your page is <strong>{{ Request::url() }}</strong>
 @endsection
