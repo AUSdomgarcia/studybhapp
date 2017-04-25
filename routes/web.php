@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin'], function(){
 		});
 		/*
 		  |-----------------------
-          | When - Registered (NA)
+          | When Registered (NA)
           |-----------------------
         */
 		Route::get('/user', function() {
@@ -85,10 +85,13 @@ Route::group(['prefix' => 'admin'], function(){
 			Route::post('/user_settings/destroy', 'UserSettingsController@destroy');
 			Route::post('/user_settings/unlock', 'UserSettingsController@unlock');
 		});
-		
-		Route::get('/my_account', function() {
-			return view('cms.pages.default');
-		});
+		/*
+		  |------------
+          | My Account
+          |------------
+        */
+		Route::get('/my_account', 'UserProfileController@index');
+		Route::post('/my_account/update', 'UserProfileController@update');
 
 	//-End-Of-Auth-Page-
 	});
