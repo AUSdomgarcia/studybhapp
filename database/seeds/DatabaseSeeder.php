@@ -24,24 +24,24 @@ class DatabaseSeeder extends Seeder
         */
         $defaultUsers = array(
 						array(
-							'name'=>'Admin BHS',
-							'email' => 'admin@bhs.com',
+							'name'=>'Admin Project',
+							'email' => 'admin@domain.com',
 							'role_id' => 1,
 							'password' => bcrypt('password'),
 							'created_at' => date("Y-m-d H:i:s"),
 							'updated_at' => date("Y-m-d H:i:s"),
 						),
 						array(
-							'name'=>'Editor BHS',
-							'email' => 'editor@bhs.com',
+							'name'=>'Editor Project',
+							'email' => 'editor@domain.com',
 							'role_id' => 2,
 							'password' => bcrypt('password'),
 							'created_at' => date("Y-m-d H:i:s"),
 							'updated_at' => date("Y-m-d H:i:s")
 						),
 						array(
-							'name'=>'Moderator BHS',
-							'email' => 'moderator@bhs.com',
+							'name'=>'Moderator Project',
+							'email' => 'moderator@domain.com',
 							'role_id' => 3,
 							'password' => bcrypt('password'),
 							'created_at' => date("Y-m-d H:i:s"),

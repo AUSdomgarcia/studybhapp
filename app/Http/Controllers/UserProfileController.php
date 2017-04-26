@@ -75,19 +75,16 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
         $rule = [
             'name' => 'required|alpha_spaces',
             'password' => array(
                                   'min:8',
                                   'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',
-                                  'same:cpassword',
-                                  'user_password_old',
-                                  'required_with:cpassword',
-                                  'different:email'
+                                  'should_not_equal_to_old_password',
+                                  // 'different:email'
                             ),
-            'cpassword' => 'required_with:password|same:password',
-            'opassword' => 'required_with:password|user_password'
+            'cpassword' => 'required|same:password',
+            'opassword' => 'required|user_password_old'
         ];
 
         $friendly_names = [
@@ -104,18 +101,15 @@ class UserProfileController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
-        $update_data = [
-            'name' => trim($request['name'])
-        ];
+        $update_data = [];
 
         if($request['password']){
             $update_data['password'] = bcrypt($request['password']);
+            $update_data['name'] = trim($request['name']);
         }
 
-        User::where('id','=',Auth::user()->id)->update($update_data);
-
+        User::find( Auth::user()->id )->update($update_data);
         Session::flash('success', '1');
-
         return Redirect::back();
     }
 

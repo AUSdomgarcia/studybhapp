@@ -34,7 +34,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="control-label col-md-3">Password </label>
+							<label class="control-label col-md-3">Password <span class="font-red">*</span></label>
 							<div class="col-md-9">
 								<input type="password" class="form-control" name="password">
 								<span class="help-block font-red">
@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-3">Confirm Password </label>
+							<label class="control-label col-md-3">Confirm Password <span class="font-red">*</span></label>
 							<div class="col-md-9">
 								<input type="password" class="form-control" name="cpassword">
 								<span class="help-block font-red">
@@ -52,7 +52,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-md-3">Old Password </label>
+							<label class="control-label col-md-3">Old Password <span class="font-red">*</span></label>
 							<div class="col-md-9">
 								<input type="password" class="form-control" name="opassword">
 								<span class="help-block font-red">

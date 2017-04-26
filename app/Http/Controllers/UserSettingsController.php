@@ -120,14 +120,10 @@ class UserSettingsController extends Controller
             'user-password' => array(
                                   'min:8',
                                   'regex:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$/',
-                                  'same:user-cpassword',
-                                  'required_with:user-cpassword|string|nullable'
-                                  // 'different:user-email',
+                                  'different:user-email',
                             ),
-            'user-cpassword' => 'required_with:user-password|string|nullable'
+            'user-cpassword' => 'required_with:user-password|same:user-password'
         ];
-
-        // Still debugging on this one.
 
         $friendly_names = [
             'user-name' => 'name',
@@ -137,27 +133,22 @@ class UserSettingsController extends Controller
             'user-cpassword' => 'confirm password'
         ];
 
-        $validator = Validator::make($request->all(),$rule);
-
-        $validator->setAttributeNames($friendly_names);
-
-        if($validator->fails()){
-            return Redirect::back()->withErrors($validator)->withInput($request->all());
-        }
-
         $update_data = [
-                    'name' => trim($request['user-name']),
-                    'role_id' => $request['user-role']
-                ];
+            'name' => trim($request['user-name']),
+            'role_id' => $request['user-role']
+        ];
 
-        if($request['user-password']){
+        if(! is_null( $request['user-password'] ) ){
+            $validator = Validator::make($request->all(), $rule);
+            $validator->setAttributeNames($friendly_names);
+            if($validator->fails()){
+                return Redirect::back()->withErrors($validator)->withInput($request->all());
+            }
             $update_data['password'] = bcrypt($request['user-password']);
         }
 
-        User::where('id','=',$request->input('user-id'))->update($update_data);
-
+        User::find($request->input('user-id'))->update($update_data);
         Session::flash('success', '1');
-
         return Redirect::back();
     }
 
@@ -169,7 +160,7 @@ class UserSettingsController extends Controller
      */
     public function destroy(Request $request)
     {
-        User::where('id','=', $request->input('user-id'))->delete();
+        User::find($request->input('user-id'))->delete();
         Session::flash('success', '1');
     }
 

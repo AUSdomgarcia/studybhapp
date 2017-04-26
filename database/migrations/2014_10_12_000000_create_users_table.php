@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->tinyInteger('role_id')->default(1);
+            $table->softDeletes();
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->tinyInteger('locked')->default(0);
