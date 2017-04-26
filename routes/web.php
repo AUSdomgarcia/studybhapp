@@ -10,9 +10,9 @@ Route::get('/', function () {
 });
 
 /*
-|-------------
-| Cms Routes
-|-------------
+|-------------------
+| Login Redirection
+|-------------------
 */
 Route::get('/login', function(){
 	return redirect('/admin/login');
@@ -20,6 +20,12 @@ Route::get('/login', function(){
 Route::get('/dashboard', function(){
 	return redirect('/admin/dashboard');
 });
+/*
+|----------------------------------------------------------
+| Mail From User (action trigger outside no auth required)
+|----------------------------------------------------------
+*/
+Route::post('/user/send_inquiry','UserInquiriesController@send_inquiry');
 
 Route::group(['prefix' => 'admin'], function(){
 	Auth::routes();
@@ -68,6 +74,9 @@ Route::group(['prefix' => 'admin'], function(){
           |--------------------
         */
         Route::group( ['roles' => ['Moderators'] ] , function(){
+			# Added mailer for testing while no website were ready.
+			Route::get('/mailer', 'UserInquiriesController@render_mailer');
+			# Pages
 			Route::get('/inquiry', function(){ 
 				return view('cms.pages.inquiry');
 			});

@@ -91,7 +91,7 @@
                 </li>
 
                 @if(Auth::user()->role_id == 3)
-                <li class="nav-item start @if(strpos(Request::url(),'inquiry')) open active @endif">
+                <li class="nav-item start @if(strpos(Request::url(),'inquiry') || strpos(Request::url(),'mailer')) open active @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-docs"></i>
                         <span class="title">Inquiry</span>
@@ -101,6 +101,11 @@
                         <li class="nav-item start @if(strpos(Request::url(),'inquiry')) active @endif">
                             <a href="/admin/inquiry" class="nav-link ">
                                 <span class="title">Inbox</span>
+                            </a>
+                        </li>
+                        <li class="nav-item start @if(strpos(Request::url(),'mailer')) active @endif">
+                            <a href="/admin/mailer" class="nav-link ">
+                                <span class="title">Mailer (tester)</span>
                             </a>
                         </li>
                     </ul>
