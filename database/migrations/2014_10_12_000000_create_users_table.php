@@ -26,6 +26,12 @@ class CreateUsersTable extends Migration
             $table->string('locked_time_started')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            
+            // account locker
+            // $table->tinyInteger('status')->default(1);
+            // $table->tinyInteger('login_attempts')->default(0);
+            // $table->string('end_lock_time')->default(0);
+            // $table->string('lock_time_started')->default(0);
         });
     }
 

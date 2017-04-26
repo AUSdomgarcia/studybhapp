@@ -22,6 +22,8 @@ class User extends Authenticatable
     
     protected $fillable = [
         'name', 'email', 'password',
+        // account locker
+        // 'status','login_attempts','lock_time_started','end_lock_time'
     ];
 
     /**

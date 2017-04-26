@@ -4,8 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "96098e473b028cdb2529580554a1ae3e",
+    "content-hash": "1630dd060bca07717f325d6ef240198a",
     "packages": [
+        {
+            "name": "crazymeeks/accountlocker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crazymeeks/laravel-accountlocker.git",
+                "reference": "2db04cf6f4615f74a014a1684ccc711b068162a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crazymeeks/laravel-accountlocker/zipball/2db04cf6f4615f74a014a1684ccc711b068162a8",
+                "reference": "2db04cf6f4615f74a014a1684ccc711b068162a8",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Crazymeeks\\AccountLocker\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jclaud",
+                    "email": "jeffclaud17@gmail.com"
+                }
+            ],
+            "description": "A laravel package for lock and unlock user account when reached the max login attempt",
+            "keywords": [
+                "Laravel account locker",
+                "laravel"
+            ],
+            "time": "2017-02-06 15:07:34"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -3338,7 +3375,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "crazymeeks/accountlocker": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
