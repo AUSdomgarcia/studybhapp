@@ -4,6 +4,14 @@
 
 @section('styles')
     @parent
+    <!-- Datepicker-->
+    <link href="{{ asset('admin_assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('admin_assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs2.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('admin_assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- Datepicker-->
+
     <style type="text/css">
         .clearfix {
             clear: both;
@@ -105,5 +113,23 @@
     </div>
     <input type="hidden" id="send_success" value="{{ session('send_success') }}" />
 
+@endsection
+
+
+@section('scripts')
+    @parent
+    <script type="text/javascript" src="{{ asset('admin_assets/global/plugins/moment.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('admin_assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('admin_assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('admin_assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
+    
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#birthday').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
 @endsection
 

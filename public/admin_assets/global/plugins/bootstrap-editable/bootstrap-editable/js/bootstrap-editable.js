@@ -5633,7 +5633,7 @@ Editableform based on Twitter Bootstrap
     }
 
     var old = $.fn.datepicker;
-    var datepicker = $.fn.datepicker = function ( option ) {
+    var datepicker = $.fn.datepicker = function ( option ) { alert('sdad');
         var args = Array.apply(null, arguments);
         args.shift();
         var internal_return,

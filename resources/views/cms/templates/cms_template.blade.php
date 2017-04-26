@@ -6,18 +6,21 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8"/>
+
     <title> @yield('page-title') </title>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
+
     <!-- <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/> -->
     <link href="{{ asset('admin_assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css"/>
+
     <link href="{{ asset('admin_assets/global/plugins/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/jqvmap/jqvmap/jqvmap.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -208,15 +211,18 @@
 <![endif]-->
 
 <script src="{{ asset('admin_assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('admin_assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+{{-- <script src="{{ asset('admin_assets/global/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script> --}}
+
+<!--
+    <script src="{{ asset('admin_assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+-->
 
 <!--
     <script src="{{ asset('admin_assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js') }}" type="text/javascript"></script>
@@ -233,29 +239,32 @@
     <script src="{{ asset('admin_assets/global/plugins/flot/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('admin_assets/global/plugins/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('admin_assets/global/plugins/jquery.pulsate.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}" type="text/javascript"></script>
+    
     <script src="{{ asset('admin_assets/global/plugins/fullcalendar/fullcalendar.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('admin_assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('admin_assets/global/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
 -->
 
-<script src="{{ asset('admin_assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/admin/pages/scripts/index.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/admin/pages/scripts/tasks.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('admin_assets/admin/pages/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/admin/pages/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+
+<!--
+    <script src="{{ asset('admin_assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/admin/pages/scripts/index.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin_assets/admin/pages/scripts/tasks.js') }}" type="text/javascript"></script>
+-->
 
 <script>
 	jQuery(document).ready(function() {    
-	   Metronic.init(); // init metronic core componets
-	   Layout.init(); // init layout
-	   QuickSidebar.init(); // init quick sidebar
-	   Demo.init(); // init demo features
-	   Index.init();   
+        Metronic.init();
+        Layout.init();
+        QuickSidebar.init(); 
+        // Demo.init();
+        // Index.init();
+        
 	   // Index.initDashboardDaterange();
 	   // Index.initJQVMAP(); // init index page's custom scripts
 	   // Index.initCalendar(); // init index page's custom scripts
