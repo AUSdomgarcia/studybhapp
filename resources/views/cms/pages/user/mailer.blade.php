@@ -11,6 +11,7 @@
         .error {
             padding: 3px;
             color: #f00;
+            font-size: 12px;
         }
     </style>
 @endsection
