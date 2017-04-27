@@ -105,29 +105,24 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
-        $return = Mail::send('emails.ask_belo.thank_you', ['web_settings'=>['key'=>'value']], function ($message) use($request) {
-            $message->from('noreply@example.com', 'noreply@example.com');
-            $message->to($request->input('email'))->subject('Thank You');
+        $websiteEmail = Mail::send('emails.pages.inquiry_thank_you', [ 'web_settings'=> [ 'thank-you-content' => '<h3>Thank you view.</h3>' ] ], function ($message) use($request) {
+            $message->from('noreply@nuworks.com', 'Domz Garcia');
+            $message->to($request->input('email'))->subject('Thank you');
         });
 
-        /*
+        $hasRecipient = false;
+        $recipients = 'dom.garcia@nuworks.ph;domgarciad@yahoo.com';
 
-        //get web content here
-        $data = $this->get_mail_content();
-        //thank you email here
-        $return = Mail::send('emails.ask_belo.thank_you', ['web_settings'=>$data], function ($message) use($request) {
-            $message->from('noreply@belo.ph', 'noreply@belo.ph');
-            $message->to($request->input('email'))->subject('Thank You');
-            // $message->to('aarontolentino123@gmail.com')->subject('Thank You');
-        });
-        //send to assigned recipient
-        $mail_recipient = array_filter(explode(";",$data['mail-default-recipient']['content']));
-        $return_1 = Mail::send('emails.ask_belo.inquiry', ['web_settings'=>$data,'data'=>$request->all()], function ($message) use($mail_recipient) {
-            $message->from('noreply@belo.ph', 'noreply@belo.ph');
-            $message->to($mail_recipient)->subject('Inquiry');
-            // $message->to('aarontolentino123@gmail.com')->subject('Thank You');
-        });
-        //save in inquiry here
+        if($hasRecipient){
+            $mail_recipient = array_filter( explode( ";", $recipients ) );
+            $data =  $request->all();
+
+            $recipientEmail = Mail::send('emails.pages.inquiry_content', compact('data'), function ($message) use($mail_recipient) {
+                $message->from('noreply@nuworks.ph', 'noreply@nuworks.ph');
+                $message->to($mail_recipient)->subject('New Inquiry Content');
+            });
+        }
+        
         $inquiry = new Inquiry;
         $inquiry->full_name = $request->input('fullname');
         $inquiry->email =$request->input('email');
@@ -136,13 +131,10 @@ class UserInquiriesController extends Controller
         $inquiry->question = $request->input('questions');
         $inquiry->is_active = 1;
         $inquiry->save();
-
-        //set success var here for toastr
-
-        if($return == 1 && $return_1 == count($mail_recipient)){
-            Session::flash('send_success', '1');
-        }
-        */
+        
+        // if($return == 1 && $return_1 == count($mail_recipient)){
+        //     Session::flash('send_success', '1');
+        // }
         return Redirect::back();
     }
 

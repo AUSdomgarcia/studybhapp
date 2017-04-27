@@ -34,8 +34,7 @@
                     <div class="form-group row">
                         <div class="col-md-8 col-md-offset-4 col-xs-8 col-xs-offset-4">
                             <br />
-                            <p>Tell us about your concern. We'll back to you within 24 - 48 hours.</p>
-                            <small>We'll get back to you within 24-48 hours.</small>
+                            <p>Tell us about your concern. <small> (We'll back to you within 24 - 48 hours)</small></p>
                         </div>
                         <div class="clearfix"></div>
                     </div>
