@@ -139,8 +139,8 @@
 			        	data: 'id', 
 			        	name: 'id',
 			        	render: function ( data, type, full, meta ) {
-					      	return '<a data-id="'+ full.id +'" class="fa fa-eye view-mail-inquiry"></a>' +
-									'<a data-id="'+ full.id +'" class="fa fa-mail-reply mail-inquiry-reply"></a>' +
+					      	return '<a data-id="'+ full.id +'" class="fa fa-eye view-mail-inquiry"></a>' + '&nbsp;' +
+									'<a data-id="'+ full.id +'" class="fa fa-mail-reply mail-inquiry-reply"></a>' + '&nbsp;&nbsp;' +
 									'<a data-id="'+ full.id +'" class="fa fa-envelope view-mail-inquiry-thread"></a>';
 					    }
 			        },
@@ -165,7 +165,7 @@
 		    	$("#mail-inquiry-email").val(inquirer_email);
 		    	$("#mail-inquiry-reply-modal").modal();
 		    });
-			
+
 		});
 	</script>
 @endsection
