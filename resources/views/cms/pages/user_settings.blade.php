@@ -240,21 +240,34 @@
 	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
-
+			/*
+			|----------------
+			| Flasher Update
+			|----------------
+			*/
 			var success_update = $("#success-update").val()
 				success_update = (success_update) ? success_update.trim() : null;
 			if(success_update=="1"){
 				toastr['success']("", "User has been updated!");
 			}
+			/*
+			|----------------
+			| Flasher Create
+			|----------------
+			*/
 			var success_create = $("#success-create").val()
 				success_create = (success_create) ? success_create.trim() : null;
-
 			if(success_create=="1"){
 				toastr['success']("", "User has been created!");
 			}
+			/*
+			|-------------
+			| Data Table
+			|-------------
+			*/
 		    $("#user-datatable").dataTable({
 		    	"order": [[ 5, "desc" ]],
 		    	"columnDefs": [

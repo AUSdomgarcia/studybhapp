@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-		<div class="portlet box purple col-md-6">
+		<div class="portlet box purple col-lg-6 col-md-12 col-xs-12">
             <div class="portlet-title">
                 <h3>Mailer Test</h3>
             </div>
@@ -51,7 +51,7 @@
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" id="fullname" name="fullname">
                                     @if($errors->first('fullname')) 
-                                    	<label id="email-error" class="error" for="email">
+                                    	<label class="error" for="email">
                                     		{{ $errors->first('fullname') }}
                                     	</label>  
                                     @endif
@@ -63,7 +63,7 @@
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" id="email" name="email">
                                     @if($errors->first('email')) 
-                                    	<label id="email-error" class="error" for="email">
+                                    	<label class="error" for="email">
                                     		{{ $errors->first('email') }}
                                     	</label>  
                                     @endif
@@ -75,7 +75,7 @@
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control" autocomplete="off" id="birthday" name="birthday" >
                                     @if($errors->first('birthday')) 
-                                    	<label id="email-error" class="error" for="email">
+                                    	<label class="error" for="email">
                                     		{{ $errors->first('birthday') }}
                                     	</label>
                                     @endif
@@ -87,7 +87,7 @@
                                 <div class="col-xs-8">
                                     <textarea class="form-control" id="address" name="address" rows="4"></textarea>
                                     @if($errors->first('address')) 
-                                    	<label id="email-error" class="error" for="email">
+                                    	<label class="error" for="email">
                                     		{{ $errors->first('address') }}
                                     	</label> 
                                     @endif
@@ -99,7 +99,7 @@
                                 <div class="col-xs-8">
                                     <textarea class="form-control" id="questions" name="questions" rows="8"></textarea>
                                     @if($errors->first('questions')) 
-                                    	<label id="email-error" class="error" for="email">
+                                    	<label class="error" for="email">
                                     		{{ $errors->first('questions') }}
                                     	</label>  
                                     @endif

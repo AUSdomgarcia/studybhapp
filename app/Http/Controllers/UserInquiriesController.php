@@ -12,6 +12,8 @@ use Mail;
 use Session;
 use Auth;
 
+use App\helpers\DatatableHandler;
+
 class UserInquiriesController extends Controller
 {
     /**
@@ -21,7 +23,7 @@ class UserInquiriesController extends Controller
      */
     public function index()
     {
-        //
+        return view('cms.pages.inquiry');
     }
 
     /**
@@ -105,25 +107,25 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
-        $websiteEmail = Mail::send('emails.pages.inquiry_thank_you', [ 'web_settings'=> [ 'thank-you-content' => '<h3>Thank you view.</h3>' ] ], function ($message) use($request) {
-            $message->from('noreply@nuworks.com', 'Domz Garcia');
+        $with_website_email = Mail::send('emails.pages.inquiry_thank_you', [ 'web_settings'=> [ 'thank-you-content' => '<h3>Thank you view.</h3>' ] ], function ($message) use($request) {
+            $message->from('noreply@domain.ph', 'Domz Garcia');
             $message->to($request->input('email'))->subject('Thank you');
         });
-
+        
         $hasRecipient = false;
         $recipients = 'dom.garcia@nuworks.ph;domgarciad@yahoo.com';
-
+        
         if($hasRecipient){
             $mail_recipient = array_filter( explode( ";", $recipients ) );
-            $data =  $request->all();
-
-            $recipientEmail = Mail::send('emails.pages.inquiry_content', compact('data'), function ($message) use($mail_recipient) {
-                $message->from('noreply@nuworks.ph', 'noreply@nuworks.ph');
+            $data = $request->all();
+            
+            $with_recipient_email = Mail::send('emails.pages.inquiry_content', compact('data'), function ($message) use($mail_recipient) {
+                $message->from('noreply@domain.ph', 'Domz Garcia');
                 $message->to($mail_recipient)->subject('New Inquiry Content');
             });
         }
         
-        $inquiry = new Inquiry;
+        $inquiry = new Inquiry();
         $inquiry->full_name = $request->input('fullname');
         $inquiry->email =$request->input('email');
         $inquiry->birthdate =$request->input('birthday');
@@ -131,14 +133,23 @@ class UserInquiriesController extends Controller
         $inquiry->question = $request->input('questions');
         $inquiry->is_active = 1;
         $inquiry->save();
-        
+
         // if($return == 1 && $return_1 == count($mail_recipient)){
-        //     Session::flash('send_success', '1');
+        // Session::flash('send_success', '1');
         // }
+
+        Session::flash('send_success', '1');
         return Redirect::back();
     }
 
     public function render_mailer(){
         return view('cms.pages.user.mailer');   
     }
+
+    public function get_inbox(){
+        $customDataTable = new DatatableHandler($request,"inquiries");
+        $data = $customDataTable->make();
+        return $data;
+    }
+
 }

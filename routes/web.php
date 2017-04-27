@@ -74,12 +74,9 @@ Route::group(['prefix' => 'admin'], function(){
           |--------------------
         */
         Route::group( ['roles' => ['Moderators'] ] , function(){
-			# Added mailer for testing while no website were ready.
-			Route::get('/mailer', 'UserInquiriesController@render_mailer');
-			# Pages
-			Route::get('/inquiry', function(){ 
-				return view('cms.pages.inquiry');
-			});
+			Route::get('/mailer', 'UserInquiriesController@render_mailer'); # Added mailer for testing while no website were ready.
+			Route::get('/inquiry', 'UserInquiriesController@index'); # All inquiry here
+			Route::get('/inquiry/inbox', 'UserInquiriesController@get_inbox'); # All inquiry here
 		});
 		/*
 		  |-----------------------
