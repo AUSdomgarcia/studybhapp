@@ -98,7 +98,7 @@
 	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-	
+
 	<!-- ckeditor -->
 	<script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
 	<script src="{{ asset('/ckeditor/config.js') }}"></script>
@@ -163,9 +163,9 @@
 		    	var inquirer_email = $(this).closest("tr").find(".mail-inquiry-email").text().trim();
 		    	$("#mail-inquiry-id").val(data_id)
 		    	$("#mail-inquiry-email").val(inquirer_email);
-
 		    	$("#mail-inquiry-reply-modal").modal();
 		    });
+			
 		});
 	</script>
 @endsection
