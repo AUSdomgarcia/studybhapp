@@ -1,5 +1,5 @@
 <?php 
-namespace App\Utilities;
+namespace App\helpers;
 use DB;
 
 class DatatableHandler {
@@ -11,8 +11,8 @@ class DatatableHandler {
 
 	public function __construct($request, $tablename)
 	{
-		$default = "inquiries"
-		$this->var_table_name = $default; 
+		// $default = "inquiries";
+		$this->var_table_name = $tablename; 
 		$this->var_request = $request;
 	}
 

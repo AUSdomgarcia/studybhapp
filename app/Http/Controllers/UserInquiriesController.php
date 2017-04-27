@@ -11,7 +11,6 @@ use Validator;
 use Mail;
 use Session;
 use Auth;
-
 use App\helpers\DatatableHandler;
 
 class UserInquiriesController extends Controller
@@ -146,8 +145,8 @@ class UserInquiriesController extends Controller
         return view('cms.pages.user.mailer');   
     }
 
-    public function get_inbox(){
-        $customDataTable = new DatatableHandler($request,"inquiries");
+    public function get_inbox(Request $request){
+        $customDataTable = new DatatableHandler($request, "inquiries");
         $data = $customDataTable->make();
         return $data;
     }
