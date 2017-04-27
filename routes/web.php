@@ -42,9 +42,9 @@ Route::group(['prefix' => 'admin'], function(){
 			return view('cms.pages.dashboard');
 		});
 		/*
-		  |-----------------------
-          | When Registered (NA)
-          |-----------------------
+		  |-------------------
+          | Register Redirect
+          |-------------------
         */
 		Route::get('/user', function() {
 			return 'User Registered Successfully.';

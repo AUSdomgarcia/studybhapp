@@ -105,6 +105,11 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
+        $return = Mail::send('emails.ask_belo.thank_you', ['web_settings'=>['key'=>'value']], function ($message) use($request) {
+            $message->from('noreply@example.com', 'noreply@example.com');
+            $message->to($request->input('email'))->subject('Thank You');
+        });
+
         /*
 
         //get web content here
