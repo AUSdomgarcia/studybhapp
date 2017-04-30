@@ -17,23 +17,18 @@
 @endsection
 
 @section('content')
-
 	<div class="row">
-		<div class="col-md-12 col-sm-12">
-			<h3 class="page-title pull-left">Admin <small> User Settings</small></h3>
+		<div class="col-md-12">
+			<h3 class="page-title pull-left"> {{ Auth::user()->name }} <small> User Settings</small></h3>
 			<input type="button" class="btn purple pull-right circle" id="add-user" value="Add User" />
 		</div>
 	</div>
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="portlet box purple">
 				<div class="portlet-title">
-					<div class="caption">
-						User Settings
-					</div>
+					<div class="caption">User Settings</div>
 				</div>
-
 				<div class="portlet-body">
 					@if (count($errors) > 0)
 					    <div class="alert alert-danger">
@@ -44,36 +39,19 @@
 					        </ul>
 					    </div>
 					@endif
-
 					<div class="table-toolbar">
 						<table class="table" id="user-datatable">
-							
 							<thead class="">
 								<tr>
-									<th width="5%">
-										 Actions
-									</th>
-									<th>
-										 Email
-									</th>
-									<th>
-										 Name
-									</th>
-									<th>
-										 Role
-									</th>
-									<th>
-										 Status
-									</th>
-									<th>
-										 Date Created
-									</th>
-									<th>
-										 Date Updated
-									</th>
+									<th width="5%">Actions</th>
+									<th>Email</th>
+									<th>Name</th>
+									<th>Role</th>
+									<th>Status</th>
+									<th>Date Created</th>
+									<th>Date Updated</th>
 								</tr>
 							</thead>
-
 							<tbody>
 								@foreach($users as $user)
 							        <tr data-id="{{ $user->id }}">
@@ -86,13 +64,9 @@
 												<i class="fa fa-lock cursor-pointer unlock-user-modal"></i>
 											@endif
 										</td>
-										
 										<td> {{ $user->email }}</td>
-										
 										<td> {{ $user->name }}</td>
-										
 										<td>{{ $user->role->name }}</td>
-
 										<td>
 											@if($user->locked == 0)
 												<span class="label label-sm label-success">
@@ -103,21 +77,20 @@
 													Locked 
 												</span>
 											@endif
-											
 										</td>
 										<td>{{ $user->created_at }}</td>
 										<td>{{ $user->updated_at }}</td>
 									</tr>
 							    @endforeach
 							</tbody>
-
 						</table>
-
-					<!-- end-table-toolbar -->
+					<!--end table wrapper-->
 					</div>
-				<!-- end-portlet-body -->
+				<!--end-portlet-body-->
 				</div>
+			<!--end of purple-->
 			</div>
+		<!--end-col-md-12-->
 		</div>
 	<!-- end-row -->
 	</div>
@@ -128,58 +101,54 @@
 				<form action="" id="user-form-save" enctype="multipart/form-data" method="POST" class="form-horizontal form-bordered">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 					<input type="hidden" name="user-id" id="user-id" value="" />
+					<!-- header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						<h4 class="modal-title"></h4>
 					</div>
-					<div class="row">
-						<div class="col-md-11">
-							<div class="form-group">
-								<label class="control-label col-md-3">Email <span class="font-red">*</span></label>
-								<div class="col-md-9">
-									<input type="text" class="form-control" id="user-email" name="user-email" value="">
-								</div>
+					<!-- body -->
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="control-label col-md-3">Email <span class="font-red">*</span></label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" id="user-email" name="user-email" value="">
 							</div>
-							<div class="form-group">
-								<label class="control-label col-md-3">Name <span class="font-red">*</span></label>
-								<div class="col-md-9">
-									<input type="text" class="form-control" id="user-name" name="user-name" value="">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Name <span class="font-red">*</span></label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" id="user-name" name="user-name" value="">
 							</div>
-
-							<div class="form-group">
-								<label class="control-label col-md-3">Role <span class="font-red">*</span></label>
-								<div class="col-md-9">
-									<select type="text" class="form-control" id="user-role" name="user-role">
-										@foreach($roles as $role)
-											<option value="{{ $role->id }}">{{ $role->name }}</option>
-										@endforeach
-									</select>
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Role <span class="font-red">*</span></label>
+							<div class="col-md-9">
+								<select type="text" class="form-control" id="user-role" name="user-role">
+									@foreach($roles as $role)
+										<option value="{{ $role->id }}">{{ $role->name }}</option>
+									@endforeach
+								</select>
 							</div>
-
-							<div class="form-group">
-								<label class="control-label col-md-3">Password <span class="font-red toggle-required">*</span></label>
-								<div class="col-md-9">
-									<input type="password" class="form-control" id="user-password" name="user-password" value="">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Password <span class="font-red toggle-required">*</span></label>
+							<div class="col-md-9">
+								<input type="password" class="form-control" id="user-password" name="user-password" value="">
 							</div>
-							
-							<div class="form-group">
-								<label class="control-label col-md-3">Confirm Password <span class="font-red toggle-required">*</span></label>
-								<div class="col-md-9">
-									<input type="password" class="form-control" id="user-cpassword" name="user-cpassword" value="">
-								</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3">Confirm Password <span class="font-red toggle-required">*</span></label>
+							<div class="col-md-9">
+								<input type="password" class="form-control" id="user-cpassword" name="user-cpassword" value="">
 							</div>
-
 						</div>
 					</div>
+					<!--footer-->
 					<div class="modal-footer">
 						<input type="submit" class="btn purple" id="save-user" value="Save">
 						<button type="button" class="btn default" data-dismiss="modal">Close</button>
 					</div>
 				</form>
-				
 			</div>
 			<!-- /.modal-content -->
 		</div>
