@@ -87,7 +87,6 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-
 @endsection
 
 @section('scripts')
@@ -146,9 +145,9 @@
 			    }
 			});
 			/*
-			|-------------
-			| Data Table
-			|-------------
+			|------------------
+			| Data Table REPLY
+			|------------------
 			*/
 			$("body").on("click",".mail-inquiry-reply",function(){
 		    	var data_id = $(this).attr("data-id");
