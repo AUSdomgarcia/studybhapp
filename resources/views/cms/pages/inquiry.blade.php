@@ -206,8 +206,10 @@
 	        	var id = $(this).attr('data-id');
 	        	// JQUERY GET
 	        	$.get('{{ url('/admin/inquiry/thread') }}/' + id, function(data) {
+	        		console.log(data);
+	        		
 	        		try {
-	        			var table  = "<tr><td>No Data</td></tr>";
+	        			var table  = '<tr><td>No Data</td></tr>';
 	        			for(var i in data){
 	        				table += 
 	        				'<tr>' +
@@ -225,10 +227,10 @@
 								'</td>' +
 							'</tr>';
 	        			}
-	        			$("#inquiries-thread-datatable").dataTable().fnDestroy();
-	        			$("#inquiries-thread-datatable tbody").html(table);
-	        			$("#mail-inquiry-thread").modal();
-	        			$("#inquiries-thread-datatable").dataTable();
+	        			$('#inquiries-thread-datatable').dataTable().fnDestroy();
+	        			$('#inquiries-thread-datatable tbody').html(table);
+	        			$('#mail-inquiry-thread').modal();
+	        			$('#inquiries-thread-datatable').dataTable();
 	        		} catch(e) {
 	        			if(e) throw new Error(e); // console.log(e);
 	        		}

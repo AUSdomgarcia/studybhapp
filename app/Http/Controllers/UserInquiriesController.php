@@ -151,10 +151,10 @@ class UserInquiriesController extends Controller
         $data = $customDataTable->make();
         return $data;
     }
-    
+
     public function get_thread($id)
     {
-        $inquiry_response = InquiryResponse::find($id)->with('user')->get();
+        $inquiry_response = InquiryResponse::where('inquiry_id', '=', $id)->with('user')->get();
         return $inquiry_response;
     }
 
