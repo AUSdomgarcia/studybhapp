@@ -20,7 +20,7 @@
 
 @section('content')
 	<!-- Portlet -->
-	<div class="portlet box purple col-lg-6 col-md-12 col-xs-12">
+	<div class="portlet box purple col-lg-12 col-md-12 col-xs-12">
         <div class="portlet-title">
             <h3>Inquiries</h3>
         </div>
