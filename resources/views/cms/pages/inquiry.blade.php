@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-	<!-- Portlet -->
+	<!-- Portlet Inquiries -->
 	<div class="portlet box purple col-lg-12 col-md-12 col-xs-12">
         <div class="portlet-title">
             <h3>Inquiries</h3>
@@ -42,12 +42,14 @@
 					</tr>
 				</thead>
 			</table>
-
         <div class="clearfix"></div>
         </div>
-	</div><!-- .container -->
+	</div>
 
-	<!-- Reply -->
+
+
+
+	<!-- Reply Modal -->
 	<div class="modal fade" id="mail-inquiry-reply-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -55,11 +57,12 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 					<input type="hidden" name="mail-inquiry-id" id="mail-inquiry-id" value="" />
 					<input type="hidden" name="mail-inquiry-email" id="mail-inquiry-email" value="" />
+					<!-- Header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						<h4 class="modal-title">Inquiry Response</h4>
 					</div>
-					
+					<!-- Body -->
 					<div class="modal-body">
 						<div class="col-md-12">
 							<div class="form-group">
@@ -77,16 +80,30 @@
 						</div>
 						<br class="clearfix">
 					</div>
+					<!-- Footer -->
 					<div class="modal-footer">
 						<input type="submit" class="btn purple" value="Send" id="mail-inquiry-response">
 						<button type="button" class="btn default" data-dismiss="modal">Close</button>
 					</div>
 				</form>
 			</div>
-			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-dialog -->
 	</div>
+
+
+
+
+	<!-- See Message Modal -->
+	
+
+
+
+	<!-- Thread Modal -->
+	
+
+
+
+
 @endsection
 
 @section('scripts')
@@ -110,9 +127,9 @@
 			$('#inquiries-datatable').DataTable({
 			    processing: false,
 			    serverSide: true,
-			    "order": [[ 4, "desc" ]],
-				"columnDefs": [
-				    { "orderable": false, "targets": [0] }
+			    'order': [[ 4, 'desc' ]],
+				'columnDefs': [
+				    { 'orderable': false, 'targets': [0] }
 				],
 			    ajax: {
 			    	url : '{{ url("/admin/inquiry/inbox") }}',
@@ -149,12 +166,12 @@
 			| Data Table REPLY
 			|------------------
 			*/
-			$("body").on("click",".mail-inquiry-reply",function(){
-		    	var data_id = $(this).attr("data-id");
-		    	var inquirer_email = $(this).closest("tr").find(".mail-inquiry-email").text().trim();
-		    	$("#mail-inquiry-id").val(data_id)
-		    	$("#mail-inquiry-email").val(inquirer_email);
-		    	$("#mail-inquiry-reply-modal").modal();
+			$('body').on('click', '.mail-inquiry-reply', function(){
+		    	var data_id = $(this).attr('data-id');
+		    	var inquirer_email = $(this).closest('tr').find('.mail-inquiry-email').text().trim();
+		    	$('#mail-inquiry-id').val(data_id);
+		    	$('#mail-inquiry-email').val(inquirer_email);
+		    	$('#mail-inquiry-reply-modal').modal();
 		    });
 		});
 	</script>

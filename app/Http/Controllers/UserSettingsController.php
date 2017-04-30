@@ -89,7 +89,7 @@ class UserSettingsController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id','=',$id)->with('role')->first();
+        $user = User::where('id','=',$id)->with('relation_role')->first();
         return $user;
     }
 

@@ -74,9 +74,11 @@ Route::group(['prefix' => 'admin'], function(){
           |-------------------
         */
         Route::group( ['roles' => ['Moderators'] ] , function(){
-			Route::get('/mailer', 'UserInquiriesController@render_mailer'); # Added mailer for testing while no website were ready.
-			Route::get('/inquiry', 'UserInquiriesController@index'); # All inquiry here
-			Route::get('/inquiry/inbox', 'UserInquiriesController@get_inbox'); # All inquiry here
+			Route::get('/inquiry', 'UserInquiriesController@index');
+			Route::get('/inquiry/inbox', 'UserInquiriesController@get_inbox');
+			
+			Route::get('/mailer', 'UserInquiriesController@render_mailer');
+			Route::post('/inquiry/reply', 'UserInquiriesController@post_reply');
 		});
 		/*
 		  |-----------------------

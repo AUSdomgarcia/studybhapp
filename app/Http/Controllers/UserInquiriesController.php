@@ -90,7 +90,7 @@ class UserInquiriesController extends Controller
     {
         //
     }
-
+    
     public function send_inquiry(Request $request){
         //validation here
         $rule = [
@@ -136,19 +136,24 @@ class UserInquiriesController extends Controller
         // if($return == 1 && $return_1 == count($mail_recipient)){
         // Session::flash('send_success', '1');
         // }
-
         Session::flash('send_success', '1');
         return Redirect::back();
     }
 
-    public function render_mailer(){
+    public function render_mailer()
+    {
         return view('cms.pages.user.mailer');   
     }
 
-    public function get_inbox(Request $request){
+    public function get_inbox(Request $request)
+    {
         $customDataTable = new DatatableHandler($request, "inquiries");
         $data = $customDataTable->make();
         return $data;
     }
 
+    public function post_reply()
+    {
+
+    }
 }
