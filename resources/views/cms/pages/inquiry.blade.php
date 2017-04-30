@@ -53,7 +53,7 @@
 
 
 	<!-- Reply Modal -->
-	<div class="modal fade" id="mail-inquiry-reply-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal fade" id="show-reply-tool-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form class="form-horizontal form-bordered" action="{{ url('/admin/inquiry/reply') }}" enctype="multipart/form-data"  method="POST">
@@ -110,7 +110,7 @@
 					<h4 class="modal-title">Inquiry Thread</h4>
 				</div>
 				<div class="modal-body">
-					<table class="table" id="inquiries-thread-datatable">
+					<table class="table" id="thread-table">
 						<thead>
 							<tr>
 								<th>User</th>
@@ -172,8 +172,8 @@
 			        	name: 'id',
 			        	render: function ( data, type, full, meta ) {
 					      	return '<a data-id="'+ full.id +'" class="fa fa-eye view-mail-inquiry-message"></a>' + '&nbsp;' +
-									'<a data-id="'+ full.id +'" class="fa fa-mail-reply mail-inquiry-reply"></a>' + '&nbsp;&nbsp;' +
-									'<a data-id="'+ full.id +'" class="fa fa-envelope view-mail-inquiry-thread"></a>';
+									'<a data-id="'+ full.id +'" class="fa fa-mail-reply show-reply-tool"></a>' + '&nbsp;&nbsp;' +
+									'<a data-id="'+ full.id +'" class="fa fa-envelope show-thread"></a>';
 					    }
 			        },
 			        { data: 'full_name', name: 'full_name' },
@@ -190,19 +190,19 @@
 			| POST REPLY
 			|-------------
 			*/
-			$('body').on('click', '.mail-inquiry-reply', function(){
-		    	var data_id = $(this).attr('data-id');
+			$('body').on('click', '.show-reply-tool', function(){
+		    	var id = $(this).attr('data-id');
 		    	var inquirer_email = $(this).closest('tr').find('.mail-inquiry-email').text().trim();
-		    	$('#mail-inquiry-id').val(data_id);
+		    	$('#mail-inquiry-id').val(id);
 		    	$('#mail-inquiry-email').val(inquirer_email);
-		    	$('#mail-inquiry-reply-modal').modal();
+		    	$('#show-reply-tool-modal').modal();
 		    });
 		    /*
 			|------------
 			| GET THREAD
 			|------------
 			*/
-			$('body').on('click', '.view-mail-inquiry-thread', function(){
+			$('body').on('click', '.show-thread', function(){
 	        	var id = $(this).attr('data-id');
 	        	// JQUERY GET
 	        	$.get('{{ url('/admin/inquiry/thread') }}/' + id, function(data) {
@@ -225,10 +225,10 @@
 								'</td>' +
 							'</tr>';
 	        			}
-	        			$('#inquiries-thread-datatable').dataTable().fnDestroy();
-	        			$('#inquiries-thread-datatable tbody').html(table);
+	        			$('#thread-table').dataTable().fnDestroy();
+	        			$('#thread-table').find('tbody').html(table);
+	        			$('#thread-table').dataTable();
 	        			$('#mail-inquiry-thread').modal();
-	        			$('#inquiries-thread-datatable').dataTable();
 	        		} catch(e) {
 	        			if(e) throw new Error(e); // console.log(e);
 	        		}
@@ -240,7 +240,16 @@
 			|-----------------
 			*/
 			$('body').on('click', '.view-mail-inquiry-message', function(){
-				alert('xx');
+	        	// var id = $(this).attr("data-id");
+	        	// $.get('{{ url('/admin/inquiry/show') }}/'+ id, function(data){
+	        	// 	$('#mail-inquiry #inquiry-name').html(data['full_name']);
+	        	// 	$('#mail-inquiry #inquiry-email').html(data['email']);
+	        	// 	$('#mail-inquiry #reply-modal').attr('data-id',data['id']);
+	        	// 	$('#mail-inquiry #inquiry-question').html(data['question']);
+	        	// 	$('#mail-inquiry #inquiry-date').html(data['created_at']);
+	        	// 	$('#mail-inquiry #inquiry-address').html(data['address']);
+	        	// 	$('#mail-inquiry').modal();
+		        // })
 			});
 
 	     // end-of-doc-ready
