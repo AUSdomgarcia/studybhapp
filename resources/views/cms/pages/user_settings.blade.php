@@ -19,7 +19,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			<h3 class="page-title pull-left"> {{ Auth::user()->name }} <small> User Settings</small></h3>
+			<h3 class="page-title pull-left">Admin <small> User Settings</small></h3>
 			<input type="button" class="btn purple pull-right circle" id="add-user" value="Add User" />
 		</div>
 	</div>
