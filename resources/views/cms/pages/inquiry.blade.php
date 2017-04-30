@@ -52,6 +52,11 @@
 
 
 
+
+
+
+
+
 	<!-- Reply Modal -->
 	<div class="modal fade" id="show-reply-tool-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
@@ -63,7 +68,7 @@
 					<!-- Header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h4 class="modal-title">Inquiry Response</h4>
+						<h4 class="modal-title"><i class="fa fa-mail-reply"></i> Inquiry Reply</h4>
 					</div>
 					<!-- Body -->
 					<div class="modal-body">
@@ -96,18 +101,61 @@
 
 
 
+
+
+
+
 	<!-- See Message Modal -->
+	<div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!--header-->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title"> <i class="fa fa-eye show-message"></i> Inquiry Message</h4>
+				</div>
+				<!--body-->
+				<div class="modal-body">
+					<div class="inbox-view-info">
+						<span class="bold" id="inquiry-name">NO_NAME_LOADED</span>
+						&lt;<span id="inquiry-email">NO_EMAIL_LOADED</span>&gt;
+						<span class="pull-right"><strong>Date: </strong><span id="inquiry-date"></span></span>
+						<p>to <strong>me</strong></p>
+					</div>
+					<br />
+					<div class="form-group">
+						<strong>Given Address:</strong>
+						<div class="inbox-view" id="inquiry-address"></div>
+					</div>
+					<div class="form-group">
+						<strong>Given Question:</strong>
+						<div class="inbox-view" id="inquiry-question"></div>
+					</div>
+				</div>
+				<!--footer-->
+				<div class="modal-footer">
+					<input type="submit" class="btn purple" id="reply-modal" data-id="" value="Reply">
+					<button type="button" class="btn default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 
 
 
 
 	<!-- Thread Modal -->
-	<div class="modal fade" id="mail-inquiry-thread" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal fade" id="thread-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Inquiry Thread</h4>
+					<h4 class="modal-title"><i class="fa fa-envelope"></i> Inquiry Thread</h4>
 				</div>
 				<div class="modal-body">
 					<table class="table" id="thread-table">
@@ -171,7 +219,7 @@
 			        	data: 'id', 
 			        	name: 'id',
 			        	render: function ( data, type, full, meta ) {
-					      	return '<a data-id="'+ full.id +'" class="fa fa-eye view-mail-inquiry-message"></a>' + '&nbsp;' +
+					      	return '<a data-id="'+ full.id +'" class="fa fa-eye show-message"></a>' + '&nbsp;' +
 									'<a data-id="'+ full.id +'" class="fa fa-mail-reply show-reply-tool"></a>' + '&nbsp;&nbsp;' +
 									'<a data-id="'+ full.id +'" class="fa fa-envelope show-thread"></a>';
 					    }
@@ -192,9 +240,9 @@
 			*/
 			$('body').on('click', '.show-reply-tool', function(){
 		    	var id = $(this).attr('data-id');
-		    	var inquirer_email = $(this).closest('tr').find('.mail-inquiry-email').text().trim();
+		    	var recipient = $(this).closest('tr').find('.mail-inquiry-email').text().trim();
 		    	$('#mail-inquiry-id').val(id);
-		    	$('#mail-inquiry-email').val(inquirer_email);
+		    	$('#mail-inquiry-email').val(recipient);
 		    	$('#show-reply-tool-modal').modal();
 		    });
 		    /*
@@ -228,7 +276,7 @@
 	        			$('#thread-table').dataTable().fnDestroy();
 	        			$('#thread-table').find('tbody').html(table);
 	        			$('#thread-table').dataTable();
-	        			$('#mail-inquiry-thread').modal();
+	        			$('#thread-modal').modal();
 	        		} catch(e) {
 	        			if(e) throw new Error(e); // console.log(e);
 	        		}
@@ -239,17 +287,17 @@
 			| GET PER MESSAGE
 			|-----------------
 			*/
-			$('body').on('click', '.view-mail-inquiry-message', function(){
-	        	// var id = $(this).attr("data-id");
-	        	// $.get('{{ url('/admin/inquiry/show') }}/'+ id, function(data){
-	        	// 	$('#mail-inquiry #inquiry-name').html(data['full_name']);
-	        	// 	$('#mail-inquiry #inquiry-email').html(data['email']);
-	        	// 	$('#mail-inquiry #reply-modal').attr('data-id',data['id']);
-	        	// 	$('#mail-inquiry #inquiry-question').html(data['question']);
-	        	// 	$('#mail-inquiry #inquiry-date').html(data['created_at']);
-	        	// 	$('#mail-inquiry #inquiry-address').html(data['address']);
-	        	// 	$('#mail-inquiry').modal();
-		        // })
+			$('body').on('click', '.show-message', function(){
+	        	var id = $(this).attr("data-id");
+	        	$.get('{{ url('/admin/inquiry/show') }}/'+ id, function(data){
+	        		$('#message-modal').find('#inquiry-name').html( data['full_name'] );
+	        		$('#message-modal').find('#inquiry-email').html(data['email']);
+	        		$('#message-modal').find('#reply-modal').attr('data-id', data['id']);
+	        		$('#message-modal').find('#inquiry-question').html(data['question']);
+	        		$('#message-modal').find('#inquiry-date').html(data['created_at']);
+	        		$('#message-modal').find('#inquiry-address').html(data['address']);
+	        		$('#message-modal').modal();
+		        })
 			});
 
 	     // end-of-doc-ready

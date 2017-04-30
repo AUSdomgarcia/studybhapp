@@ -160,7 +160,8 @@ class UserInquiriesController extends Controller
 
     public function get_message($id)
     {
-        
+        $inquiry = Inquiry::find($id)->first();
+        return $inquiry;
     }
 
     public function post_reply(Request $request)
