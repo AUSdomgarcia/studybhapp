@@ -90,7 +90,7 @@
 					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
-						<input type="submit" class="btn purple" value="Send" id="mail-inquiry-response">
+						<input type="submit" class="btn purple" value="Send" id="show-reply-tool-send">
 						<button type="button" class="btn default" data-dismiss="modal">Close</button>
 					</div>
 				</form>
@@ -134,7 +134,7 @@
 				</div>
 				<!--footer-->
 				<div class="modal-footer">
-					<input type="submit" class="btn purple" id="reply-modal" data-id="" value="Reply">
+					<input type="submit" class="btn purple" id="btn-reply-show-modal" data-id="" value="Reply">
 					<button type="button" class="btn default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -293,13 +293,30 @@
 	        		var message = $('#message-modal');
  	        		message.find('#inquiry-name').html( data['full_name'] );
 	        		message.find('#inquiry-email').html(data['email']);
-	        		message.find('#reply-modal').attr('data-id', data['id']);
+	        		message.find('#btn-reply-show-modal').attr('data-id', data['id']);
 	        		message.find('#inquiry-question').html(data['question']);
 	        		message.find('#inquiry-date').html(data['created_at']);
 	        		message.find('#inquiry-address').html(data['address']);
 	        		message.modal();
-		        })
+		        });
 			});
+			/*
+			|-----------------------------
+			| #1 DYNAMIC_ID REPLY TRIGGER
+			|-----------------------------
+			*/
+			$("#btn-reply-show-modal").click(function(){
+				$('#message-modal').toggle();
+				$(".show-reply-tool[data-id='"+ $(this).attr("data-id") +"']").trigger("click");
+	        });
+	        /*
+			|---------------------
+			| #2 AFTER SEND REPLY
+			|---------------------
+			*/
+			$("body").on("click", "#show-reply-tool-send", function(){
+	        	$("#message-modal").toggle();
+	        });
 
 	     // end-of-doc-ready
 		});
