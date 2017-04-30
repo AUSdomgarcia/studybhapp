@@ -11,6 +11,9 @@
 		    cursor:not-allowed;
 		    color: gray;
 		}
+		#inquiries-datatable {
+			font-size: 14px;
+		}
 	</style>
 @endsection
 
@@ -94,12 +97,12 @@
 
 
 	<!-- See Message Modal -->
-	
+
 
 
 
 	<!-- Thread Modal -->
-	
+
 
 
 
@@ -134,7 +137,7 @@
 			    ajax: {
 			    	url : '{{ url("/admin/inquiry/inbox") }}',
 			    	data : function(res){
-			    		console.log(res);
+			    		// console.log(res);
 			    		Metronic.blockUI({
 							target: $('#inquiries-datatable'),
 							animate: true,
