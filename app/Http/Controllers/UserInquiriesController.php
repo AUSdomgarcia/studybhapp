@@ -132,7 +132,7 @@ class UserInquiriesController extends Controller
         $inquiry->question = $request->input('questions');
         $inquiry->is_active = 1;
         $inquiry->save();
-
+        
         // if($return == 1 && $return_1 == count($mail_recipient)){
         // Session::flash('send_success', '1');
         // }
@@ -163,7 +163,7 @@ class UserInquiriesController extends Controller
         $inquiry = Inquiry::where('id', '=', $id)->first();
         return $inquiry;
     }
-
+    
     public function post_reply(Request $request)
     {
         dd($request->input('_token'));

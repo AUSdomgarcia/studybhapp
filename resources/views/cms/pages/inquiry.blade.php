@@ -290,13 +290,14 @@
 			$('body').on('click', '.show-message', function(){
 	        	var id = $(this).attr("data-id");
 	        	$.get('{{ url('/admin/inquiry/show') }}/'+ id, function(data){
-	        		$('#message-modal').find('#inquiry-name').html( data['full_name'] );
-	        		$('#message-modal').find('#inquiry-email').html(data['email']);
-	        		$('#message-modal').find('#reply-modal').attr('data-id', data['id']);
-	        		$('#message-modal').find('#inquiry-question').html(data['question']);
-	        		$('#message-modal').find('#inquiry-date').html(data['created_at']);
-	        		$('#message-modal').find('#inquiry-address').html(data['address']);
-	        		$('#message-modal').modal();
+	        		var message = $('#message-modal');
+ 	        		message.find('#inquiry-name').html( data['full_name'] );
+	        		message.find('#inquiry-email').html(data['email']);
+	        		message.find('#reply-modal').attr('data-id', data['id']);
+	        		message.find('#inquiry-question').html(data['question']);
+	        		message.find('#inquiry-date').html(data['created_at']);
+	        		message.find('#inquiry-address').html(data['address']);
+	        		message.modal();
 		        })
 			});
 
