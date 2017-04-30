@@ -103,15 +103,15 @@
 
 	<!-- Thread Modal -->
 	<div class="modal fade" id="mail-inquiry-thread" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog" style="width: 800px;">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 					<h4 class="modal-title">Inquiry Thread</h4>
 				</div>
-				<div class="row" style="padding: 0px 30px 30px 30px;">
+				<div class="modal-body">
 					<table class="table" id="inquiries-thread-datatable">
-						<thead class="">
+						<thead>
 							<tr>
 								<th>User</th>
 								<th>Title</th>
@@ -206,10 +206,8 @@
 	        	var id = $(this).attr('data-id');
 	        	// JQUERY GET
 	        	$.get('{{ url('/admin/inquiry/thread') }}/' + id, function(data) {
-	        		console.log(data);
-	        		
 	        		try {
-	        			var table  = '<tr><td>No Data</td></tr>';
+	        			var table  = undefined;
 	        			for(var i in data){
 	        				table += 
 	        				'<tr>' +
