@@ -32,6 +32,22 @@
     <link href="{{ asset('admin_assets/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="favicon.ico"/>
 
+    <style type="text/css">
+        .portlet-title h3 {
+            margin: 0;
+            font-size: 18px;
+            padding: 11px 0 9px 0;
+        }
+        .clearfix {
+            clear: both;
+        }
+        .error {
+            padding: 3px;
+            color: #f00;
+            font-size: 12px;
+        }
+    </style>
+
     @yield('styles')
 
 </head>

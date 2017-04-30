@@ -11,17 +11,6 @@
     <link href="{{ asset('admin_assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('admin_assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Datepicker-->
-
-    <style type="text/css">
-        .clearfix {
-            clear: both;
-        }
-        .error {
-            padding: 3px;
-            color: #f00;
-            font-size: 12px;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -121,7 +110,7 @@
 	</div>
     <input type="hidden" id="send_success" value="{{ session('send_success') }}" />
     <div class="clearfix"></div>
-    
+
 @endsection
 
 

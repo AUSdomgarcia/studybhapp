@@ -69,9 +69,9 @@ Route::group(['prefix' => 'admin'], function(){
 			});
 		});
 		/*
-		  |--------------------
+		  |-------------------
           | Role - Moderators
-          |--------------------
+          |-------------------
         */
         Route::group( ['roles' => ['Moderators'] ] , function(){
 			Route::get('/mailer', 'UserInquiriesController@render_mailer'); # Added mailer for testing while no website were ready.

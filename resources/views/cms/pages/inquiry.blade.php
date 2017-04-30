@@ -6,16 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}">
-		
 	<link href="{{ asset('admin_assets/custom/custom.css') }}" rel="stylesheet" type="text/css"/> <!--pointer-->
-
 	<style type="text/css">
 		i[disabled] {
 		    cursor:not-allowed;
 		    color: gray;
 		}
 	</style>
-
 @endsection
 
 @section('content')
