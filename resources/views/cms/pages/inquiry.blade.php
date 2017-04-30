@@ -12,7 +12,7 @@
 		    color: gray;
 		}
 		#inquiries-datatable {
-			font-size: 14px;
+			font-size: 13px;
 		}
 	</style>
 @endsection
@@ -56,7 +56,7 @@
 	<div class="modal fade" id="mail-inquiry-reply-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form class="form-horizontal form-bordered" action="{{ url('/admin/ask_belo/mail_inquiry_reply') }}" enctype="multipart/form-data"  method="POST">
+				<form class="form-horizontal form-bordered" action="{{ url('/admin/inquiry/reply') }}" enctype="multipart/form-data"  method="POST">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 					<input type="hidden" name="mail-inquiry-id" id="mail-inquiry-id" value="" />
 					<input type="hidden" name="mail-inquiry-email" id="mail-inquiry-email" value="" />
@@ -102,8 +102,29 @@
 
 
 	<!-- Thread Modal -->
-
-
+	<div class="modal fade" id="mail-inquiry-thread" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog" style="width: 800px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Inquiry Thread</h4>
+				</div>
+				<div class="row" style="padding: 0px 30px 30px 30px;">
+					<table class="table" id="inquiries-thread-datatable">
+						<thead class="">
+							<tr>
+								<th>User</th>
+								<th>Title</th>
+								<th>Message</th>
+								<th>Date Created</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -165,9 +186,9 @@
 			    }
 			});
 			/*
-			|------------------
-			| Data Table REPLY
-			|------------------
+			|-------------
+			| POST REPLY
+			|-------------
 			*/
 			$('body').on('click', '.mail-inquiry-reply', function(){
 		    	var data_id = $(this).attr('data-id');
@@ -176,7 +197,44 @@
 		    	$('#mail-inquiry-email').val(inquirer_email);
 		    	$('#mail-inquiry-reply-modal').modal();
 		    });
+		    /*
+			|------------
+			| GET THREAD
+			|------------
+			*/
+			$('body').on('click', '.view-mail-inquiry-thread', function(){
+	        	var id = $(this).attr('data-id');
+	        	// JQUERY GET
+	        	$.get('{{ url('/admin/inquiry/thread') }}/' + id, function(data) {
+	        		try {
+	        			var table  = "<tr><td>No Data</td></tr>";
+	        			for(var i in data){
+	        				table += 
+	        				'<tr>' +
+								'<td>'+
+									data[i]['user']['email'] +
+								'</td>' +
+								'<td>' +
+									data[i]['title'] +
+								'</td>' +
+								'<td>' +
+									data[i]['message'] +
+								'</td>' +
+								'<td>' +
+									data[i]['created_at'] +
+								'</td>' +
+							'</tr>';
+	        			}
+	        			$("#inquiries-thread-datatable").dataTable().fnDestroy();
+	        			$("#inquiries-thread-datatable tbody").html(table);
+	        			$("#mail-inquiry-thread").modal();
+	        			$("#inquiries-thread-datatable").dataTable();
+	        		} catch(e) {
+	        			if(e) throw new Error(e); // console.log(e);
+	        		}
+	        	});
+	        });
+	     // end-of-doc-ready
 		});
 	</script>
 @endsection
-

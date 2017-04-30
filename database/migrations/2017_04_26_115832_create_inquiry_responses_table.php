@@ -13,7 +13,7 @@ class CreateInquiryResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inquiry_responses', function (Blueprint $table) {
+        Schema::create('inquiries_response', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inquiry_id');
             $table->string('title');

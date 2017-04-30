@@ -14,13 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-
         Model::unguard();
         DB::table('users')->truncate();
 
-        /*|============================
+        /*|---------------
           | Default Users
-          |============================ 
+          |--------------- 
         */
         $defaultUsers = array(
 						array(
@@ -51,11 +50,10 @@ class DatabaseSeeder extends Seeder
         
         DB::table('users')->insert($defaultUsers);
 
-        /*|============================
+        /*|---------------
           | Default Role
-          |============================ 
+          |--------------- 
         */
-
         DB::table('roles')->truncate();
 
         Role::create([
@@ -70,6 +68,5 @@ class DatabaseSeeder extends Seeder
             'name'          => 'Moderators',
             'description'   => 'Monitor/extract customers’ submissions/requests and updates the status of inquiries '
         ]);
-
     }	
 }

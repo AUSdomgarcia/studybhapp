@@ -90,7 +90,7 @@ class UserInquiriesController extends Controller
     {
         //
     }
-    
+
     public function send_inquiry(Request $request){
         //validation here
         $rule = [
@@ -151,9 +151,15 @@ class UserInquiriesController extends Controller
         $data = $customDataTable->make();
         return $data;
     }
-
-    public function post_reply()
+    
+    public function get_thread($id)
     {
+        $inquiry_response = InquiryResponse::find($id)->with('user')->get();
+        return $inquiry_response;
+    }
 
+    public function post_reply(Request $request)
+    {
+        dd($request->input('_token'));
     }
 }
