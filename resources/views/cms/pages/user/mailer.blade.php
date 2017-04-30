@@ -128,6 +128,10 @@
                 format: 'yyyy-mm-dd'
             });
         });
+        var send_success = $("#send_success").val().trim();
+        if(send_success=="1"){
+            toastr['success']("", "Message has been sent successfully!");
+        }
     </script>
 @endsection
 

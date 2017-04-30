@@ -2,10 +2,9 @@
 
 @section('page-title', 'IRIS | Inquiry')
 
+@include('modules.datatable');
+
 @section('styles')
-	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}">
 	<link href="{{ asset('admin_assets/custom/custom.css') }}" rel="stylesheet" type="text/css"/> <!--pointer-->
 	<style type="text/css">
 		i[disabled] {
@@ -60,21 +59,23 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						<h4 class="modal-title">Inquiry Response</h4>
 					</div>
-					<div class="row">
-						<div class="col-md-10">
+					
+					<div class="modal-body">
+						<div class="col-md-12">
 							<div class="form-group">
-								<label class="control-label col-md-3">Title <span class="font-red">*</span></label>
-								<div class="col-md-9">
+								<label class="control-label col-md-2">Title <span class="font-red">*</span></label>
+								<div class="col-md-10">
 									<input type="text" class="form-control" id="mail-inquiry-title" name="mail-inquiry-title" value="">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-md-3">Body <span class="font-red">*</span></label>
-								<div class="col-md-9">
+								<label class="control-label col-md-2">Body <span class="font-red">*</span></label>
+								<div class="col-md-10">
 									<textarea style="height: 100px" class="form-control" id="mail-inquiry-body" name="mail-inquiry-body"> CKEDITOR Default Body Content </textarea>
 								</div>
 							</div>
 						</div>
+						<br class="clearfix">
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn purple" value="Send" id="mail-inquiry-response">
@@ -90,12 +91,6 @@
 @endsection
 
 @section('scripts')
-	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('admin_assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-
 	<!-- ckeditor -->
 	<script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
 	<script src="{{ asset('/ckeditor/config.js') }}"></script>
@@ -162,7 +157,6 @@
 		    	$("#mail-inquiry-email").val(inquirer_email);
 		    	$("#mail-inquiry-reply-modal").modal();
 		    });
-
 		});
 	</script>
 @endsection
