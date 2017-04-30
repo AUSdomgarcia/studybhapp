@@ -171,7 +171,7 @@
 			        	data: 'id', 
 			        	name: 'id',
 			        	render: function ( data, type, full, meta ) {
-					      	return '<a data-id="'+ full.id +'" class="fa fa-eye view-mail-inquiry"></a>' + '&nbsp;' +
+					      	return '<a data-id="'+ full.id +'" class="fa fa-eye view-mail-inquiry-message"></a>' + '&nbsp;' +
 									'<a data-id="'+ full.id +'" class="fa fa-mail-reply mail-inquiry-reply"></a>' + '&nbsp;&nbsp;' +
 									'<a data-id="'+ full.id +'" class="fa fa-envelope view-mail-inquiry-thread"></a>';
 					    }
@@ -234,6 +234,15 @@
 	        		}
 	        	});
 	        });
+	        /*
+			|-----------------
+			| GET PER MESSAGE
+			|-----------------
+			*/
+			$('body').on('click', '.view-mail-inquiry-message', function(){
+				alert('xx');
+			});
+
 	     // end-of-doc-ready
 		});
 	</script>

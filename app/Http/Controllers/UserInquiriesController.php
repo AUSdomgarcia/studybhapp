@@ -54,7 +54,7 @@ class UserInquiriesController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -156,6 +156,11 @@ class UserInquiriesController extends Controller
     {
         $inquiry_response = InquiryResponse::where('inquiry_id', '=', $id)->with('user')->get();
         return $inquiry_response;
+    }
+
+    public function get_message($id)
+    {
+        
     }
 
     public function post_reply(Request $request)

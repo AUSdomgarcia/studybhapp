@@ -76,6 +76,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::group( ['roles' => ['Moderators'] ] , function(){
 			Route::get('/inquiry', 'UserInquiriesController@index');
 			Route::get('/inquiry/inbox', 'UserInquiriesController@get_inbox'); // Get inbox after page rendered
+			Route::get('inquiry/show/{id}', 'UserInquiriesController@get_message');
 			Route::get('/inquiry/thread/{id}', 'UserInquiriesController@get_thread'); // Get thread messages
 			Route::post('/inquiry/reply', 'UserInquiriesController@post_reply'); // post reply
 			# Mailer

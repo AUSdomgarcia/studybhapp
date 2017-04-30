@@ -97,7 +97,7 @@
                         <!-- Submit -->
                         <div class="form-group">
                             <div class="col-xs-offset-4 col-xs-8">
-                                <button type="submit" name="submit" class="btn btn-default btn-lg btn-block green">Send</button>
+                                <button type="submit" name="submit" class="btn purple pull-right">Send Email</button>
                             </div>
                         </div>
                     </div>
