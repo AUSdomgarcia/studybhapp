@@ -35,7 +35,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function role()
+    public function relation_role()
     {
         return $this->hasOne(\App\Role::class, 'id', 'role_id');
     }
@@ -62,7 +62,8 @@ class User extends Authenticatable
 
     private function getUserRole()
     {   
-        return $this->role()->getResults();
+        return $this->relation_role()->getResults();
+        // return $this->role()->getResults();
     }
 
     private function checkIfUserHasRole($need_role)

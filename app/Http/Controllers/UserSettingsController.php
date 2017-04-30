@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Role;
-
 use Validator;
 use Redirect;
 use Session;
@@ -20,7 +19,7 @@ class UserSettingsController extends Controller
      */
     public function index()
     {
-        $users  = User::with('role')->get();
+        $users  = User::with('relation_role')->get();
         $roles  = Role::all();
         return view('cms.pages.user_settings', compact('users','roles') );
     }

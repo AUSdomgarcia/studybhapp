@@ -66,7 +66,7 @@
 										</td>
 										<td> {{ $user->email }}</td>
 										<td> {{ $user->name }}</td>
-										<td>{{ $user->role->name }}</td>
+										<td>{{ $user->relation_role->name }}</td>
 										<td>
 											@if($user->locked == 0)
 												<span class="label label-sm label-success">
