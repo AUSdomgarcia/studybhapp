@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Role;
+use App\WebSetting;
 
 class DatabaseSeeder extends Seeder
 {
@@ -47,7 +48,7 @@ class DatabaseSeeder extends Seeder
 							'updated_at' => date("Y-m-d H:i:s")
 						)
 					);
-        
+        DB::table('users')->truncate();
         DB::table('users')->insert($defaultUsers);
 
         /*|---------------
@@ -68,5 +69,34 @@ class DatabaseSeeder extends Seeder
             'name'          => 'Moderators',
             'description'   => 'Monitor/extract customers’ submissions/requests and updates the status of inquiries '
         ]);
+
+        /*
+          |---------------------
+          | Default WebSetting
+          |--------------------- 
+        */
+        $mail_content = array(
+                    array(
+                      'key'=>'default-recipient',
+                      'content' => 'domgarcia.fp@gmail.com;ruthgpokemon@gmail.com;',
+                      'created_at' => date("Y-m-d H:i:s"),
+                      'updated_at' => date("Y-m-d H:i:s")
+                    ),
+                    array(
+                      'key'=>'default-reply-message',
+                      'content' => 'We received your feedback and alreay evaluating it to generate resolution.',
+                      'created_at' => date("Y-m-d H:i:s"),
+                      'updated_at' => date("Y-m-d H:i:s")
+                    ),
+                    array(
+                      'key'=>'default-thankyou-message',
+                      'content' => 'Hello User, Thank You for sending us your feedback.',
+                      'created_at' => date("Y-m-d H:i:s"),
+                      'updated_at' => date("Y-m-d H:i:s")
+                    )
+                );
+        
+        DB::table('web_settings')->truncate();
+        DB::table('web_settings')->insert($mail_content);
     }	
 }

@@ -13,7 +13,7 @@ class CreateWebSettingTable extends Migration
      */
     public function up()
     {
-        Schema::create('WebSetting', function (Blueprint $table) {
+        Schema::create('web_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
             $table->string('content');
@@ -28,6 +28,6 @@ class CreateWebSettingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('WebSetting');
+        Schema::dropIfExists('web_settings');
     }
 }
