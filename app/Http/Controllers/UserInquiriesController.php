@@ -135,10 +135,7 @@ class UserInquiriesController extends Controller
         $inquiry->is_active = 1;
         $inquiry->save();
         
-        if($mailer_thankyou == 1){
-            Session::flash('send_success', '1');
-        }
-
+        Session::flash('inquiry_sent', '1');
         return Redirect::back();
     }
 
@@ -187,9 +184,15 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
         
-        $data = $request->all();
-        
-        $isReplied = Mail::send('emails.pages.inquiry_response_message', [ 'web_settings'=> [ 'moderator-message' => '<h3>This is moderator message.</h3>' ] ], 
+        $inquiry_user = Inquiry::select('full_name')
+                    ->where('id','=', $request->input('mail-inquiry-id'))->first();
+
+        $moderator = array(
+                        "message" => "{$request->input('mail-inquiry-body')}",
+                        "full_name" => $inquiry_user->full_name,
+                    );
+
+        $isReplied = Mail::send('emails.pages.inquiry_response_message', compact('moderator'), 
             function ($message) use($request) {
                 $message->from('noreply@domain.ph', 'Domz Garcia');
                 $message->to($request->input('mail-inquiry-email'))
@@ -203,9 +206,7 @@ class UserInquiriesController extends Controller
         $inquiry_response->user_id = Auth::user()->id;
         $inquiry_response->save();
 
-        if($isReplied == 1){
-            Session::flash('send_reply_success', '1');
-        }
+        Session::flash('reply_sent', '1');
         return Redirect::back();
     }
 }

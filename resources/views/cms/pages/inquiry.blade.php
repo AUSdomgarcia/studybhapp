@@ -11,7 +11,7 @@
 		    cursor:not-allowed;
 		    color: gray;
 		}
-		#inquiries-datatable {
+		#inquiries-table, #thread-table {
 			font-size: 13px;
 		}
 	</style>
@@ -34,7 +34,7 @@
 			    </div>
 			@endif
 		
-			<table class="table" id="inquiries-datatable">
+			<table class="table" id="inquiries-table">
 				<thead>
 					<tr>
 						<th style="width: 60px !important; ">Actions</th>
@@ -98,6 +98,7 @@
 				</form>
 			</div>
 		</div>
+	<input type="hidden" id="reply_sent" value="{{ session('reply_sent') }}" />
 	</div>
 
 
@@ -153,7 +154,7 @@
 
 	<!-- Thread Modal -->
 	<div class="modal fade" id="thread-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -198,7 +199,7 @@
 			| Data Table
 			|-------------
 			*/
-			$('#inquiries-datatable').DataTable({
+			$('#inquiries-table').DataTable({
 			    processing: false,
 			    serverSide: true,
 			    'order': [[ 4, 'desc' ]],
@@ -210,7 +211,7 @@
 			    	data : function(res){
 			    		// console.log(res);
 			    		Metronic.blockUI({
-							target: $('#inquiries-datatable'),
+							target: $('#inquiries-table'),
 							animate: true,
 							overlayColor: 'none'
 						});
@@ -232,7 +233,7 @@
 			        { data: 'updated_at', name: 'updated_at', type:'date' }
 			    ],
 			    drawCallback : function(){
-			    	Metronic.unblockUI($('#inquiries-datatable'))
+			    	Metronic.unblockUI($('#inquiries-table'))
 			    }
 			});
 			/*
@@ -311,15 +312,12 @@
 				$('#message-modal').modal('hide');
 				$(".show-reply-tool[data-id='" + $(this).attr('data-id') +"']").trigger("click");
 	        });
+		    
+		    var reply_sent = $('#reply_sent').val().trim();
 	        
-	        /*
-			|---------------------
-			| #2 AFTER SEND REPLY
-			|---------------------
-			*/
-			// $("body").on("click", "#show-reply-tool-send", function(){
-	        	// $("#message-modal").toggle();
-	        // });
+	        if(reply_sent=='1'){
+	            toastr['success']('', 'Message has been sent successfully!');
+	        }
 
 	     // end-of-doc-ready
 		});

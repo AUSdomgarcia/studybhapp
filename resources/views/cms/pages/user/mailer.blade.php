@@ -108,7 +108,7 @@
         </div>
     <!-- .container -->
 	</div>
-    <input type="hidden" id="send_success" value="{{ session('send_success') }}" />
+    <input type="hidden" id="inquiry_sent" value="{{ session('inquiry_sent') }}" />
     <div class="clearfix"></div>
 
 @endsection
@@ -128,8 +128,8 @@
                 format: 'yyyy-mm-dd'
             });
         });
-        var send_success = $("#send_success").val().trim();
-        if(send_success=="1"){
+        var inquiry_sent = $("#inquiry_sent").val().trim();
+        if(inquiry_sent=="1"){
             toastr['success']("", "Message has been sent successfully!");
         }
     </script>
