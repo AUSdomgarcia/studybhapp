@@ -159,7 +159,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title"><i class="fa fa fa-list"></i> Thread - <small>Your message to user(s)</small></h4>
+					<h4 class="modal-title"><i class="fa fa fa-list"></i> Thread - <small>Replied messages to user</small></h4>
 				</div>
 				<div class="modal-body">
 					<table class="table" id="thread-table">
