@@ -79,6 +79,8 @@ Route::group(['prefix' => 'admin'], function(){
 			Route::get('inquiry/show/{id}', 'UserInquiriesController@get_message');
 			Route::get('/inquiry/thread/{id}', 'UserInquiriesController@get_thread'); // Get thread messages
 			Route::post('/inquiry/reply', 'UserInquiriesController@post_reply'); // post reply
+			# Edit
+			Route::get('/moderator_edit', 'UserInquiriesController@edit_content');
 			# Mailer
 			Route::get('/mailer', 'UserInquiriesController@render_mailer');
 		});

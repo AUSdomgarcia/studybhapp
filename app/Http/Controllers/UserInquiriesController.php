@@ -162,6 +162,10 @@ class UserInquiriesController extends Controller
         $inquiry = Inquiry::where('id', '=', $id)->first();
         return $inquiry;
     }
+
+    public function edit_content(){
+        return view('cms.pages.moderator_editor');
+    }
     
     public function post_reply(Request $request)
     {
