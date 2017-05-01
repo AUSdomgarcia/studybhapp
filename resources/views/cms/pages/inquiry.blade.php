@@ -84,7 +84,7 @@
 							<div class="form-group">
 								<label class="control-label col-md-2">Body <span class="font-red">*</span></label>
 								<div class="col-md-10">
-									<textarea style="height: 100px" class="form-control" id="mail-inquiry-body" name="mail-inquiry-body"> CKEDITOR Default Body Content </textarea>
+									<textarea class="form-control" id="mail-inquiry-body" name="mail-inquiry-body"></textarea>
 								</div>
 							</div>
 						</div>
