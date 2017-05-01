@@ -66,7 +66,6 @@
 					<!--container-input-hidden-->
 					<input type="hidden" name="mail-inquiry-id" id="mail-inquiry-id" value="" />
 					<input type="hidden" name="mail-inquiry-email" id="mail-inquiry-email" value="" />
-					
 					<!-- Header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -84,7 +83,9 @@
 							<div class="form-group">
 								<label class="control-label col-md-2">Body <span class="font-red">*</span></label>
 								<div class="col-md-10">
-									<textarea class="form-control" id="mail-inquiry-body" name="mail-inquiry-body"></textarea>
+									<textarea class="form-control" id="mail-inquiry-body" name="mail-inquiry-body">
+										{!! $email_group['default-reply-message']['content'] !!}
+									</textarea>
 								</div>
 							</div>
 						</div>

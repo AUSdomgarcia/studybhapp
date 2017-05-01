@@ -86,14 +86,14 @@ class DatabaseSeeder extends Seeder
                     array(
                       'key'=>'default-reply-message',
                       'group'=> 'email',
-                      'content' => '<p>We received your feedback and alreay evaluating it to generate resolution.</p>',
+                      'content' => '<p>We already made a resolution regarding your concern.</p>',
                       'created_at' => date("Y-m-d H:i:s"),
                       'updated_at' => date("Y-m-d H:i:s")
                     ),
                     array(
                       'key'=>'default-thankyou-message',
                       'group'=> 'email',
-                      'content' => '<p>Hello User, Thank You for sending us your feedback.</p>',
+                      'content' => '<p>Good day! Thank You for sending us your feedback.</p>',
                       'created_at' => date("Y-m-d H:i:s"),
                       'updated_at' => date("Y-m-d H:i:s")
                     )

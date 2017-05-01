@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin'], function(){
 			Route::get('/moderator_edit', 'UserInquiriesController@edit_content');
 			Route::post('/moderator_edit/update_reply', 'UserInquiriesController@update_reply');
 			Route::post('/moderator_edit/update_thankyou', 'UserInquiriesController@update_thankyou');
+			Route::post('/moderator_edit/update_recipient', 'UserInquiriesController@update_recipient');
 			# Mailer
 			Route::get('/mailer', 'UserInquiriesController@render_mailer');
 		});

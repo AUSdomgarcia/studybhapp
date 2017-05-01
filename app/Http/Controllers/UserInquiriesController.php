@@ -23,7 +23,8 @@ class UserInquiriesController extends Controller
      */
     public function index()
     {
-        return view('cms.pages.inquiry');
+        $email_group = $this->get_email_group();
+        return view('cms.pages.inquiry', compact('email_group'));
     }
 
     /**
@@ -165,13 +166,18 @@ class UserInquiriesController extends Controller
     }
 
     public function edit_content(){
+        $data = $this->get_email_group();
+        return view('cms.pages.moderator_editor', compact('data'));
+    }
+
+    private function get_email_group()
+    {
         $email_settings = WebSetting::where('group', '=', 'email')->get();
         $data = array();
         foreach($email_settings as $key => $setting){
             $data[(string)$setting['key']] = $setting;
         }
-        // example: dd($data['default-recipient']['content']);
-        return view('cms.pages.moderator_editor', compact('data'));
+        return $data;
     }
 
     public function update_reply(Request $request)
@@ -182,13 +188,26 @@ class UserInquiriesController extends Controller
         ];
         $friendly_names = [
             "mail-reply-id" => "id",
-            "default-reply-message" => "body"
+            "default-reply-message" => "<MESSAGE>"
         ];
+        
         $validator = Validator::make($request->all(), $rule);
         $validator->setAttributeNames($friendly_names);
+
         if($validator->fails()){
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
+        
+        $update_data = [
+                'content' => $request->input('default-reply-message'),
+            ];
+        
+        WebSetting::find($request->input("mail-reply-id"))
+                    ->where('key', '=', 'default-reply-message')
+                    ->update($update_data);
+
+        Session::flash('reply_updated', '1');
+        return Redirect::back();
     }
 
     public function update_thankyou(Request $request)
@@ -199,13 +218,56 @@ class UserInquiriesController extends Controller
         ];
         $friendly_names = [
             "mail-thankyou-id" => "id",
-            "default-thankyou-message" => "body"
+            "default-thankyou-message" => "<MESSAGE>"
         ];
+
         $validator = Validator::make($request->all(), $rule);
         $validator->setAttributeNames($friendly_names);
+        
         if($validator->fails()){
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
+
+        $update_data = [
+                'content' => $request->input('default-thankyou-message'),
+            ];
+            
+        WebSetting::find($request->input("mail-thankyou-id"))
+                    ->where('key', '=', 'default-thankyou-message')
+                    ->update($update_data);
+
+        Session::flash('thankyou_updated', '1');
+        return Redirect::back();
+    }
+
+    public function update_recipient(Request $request)
+    {   
+        $rule = [
+            "mail-recipient-id" => "required",
+            "default-recipient" => "required|max:1000"
+        ];
+        $friendly_names = [
+            "mail-recipient-id" => "id",
+            "default-recipient" => "<EMAIL>"
+        ];
+
+        $validator = Validator::make($request->all(), $rule);
+        $validator->setAttributeNames($friendly_names);
+        
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator)->withInput($request->all());
+        }
+
+        $update_data = [
+                'content' => $request->input('default-recipient'),
+            ];
+            
+        WebSetting::find($request->input("mail-recipient-id"))
+                    ->where('key', '=', 'default-recipient')
+                    ->update($update_data);
+
+        Session::flash('recipient_updated', '1');
+        return Redirect::back();
     }
 
     public function post_reply(Request $request)
