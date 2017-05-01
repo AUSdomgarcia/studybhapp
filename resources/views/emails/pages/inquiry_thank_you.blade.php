@@ -1,5 +1,5 @@
 <div>
-	{!! $web_settings['thank-you-content'] !!}
+	{!! $thank_you_message['content'] !!}
+	<br />
+	<p>Disclaimer: This is a system-generated email. Please do not reply to this email address.</p>
 </div>
-
-<p>Disclaimer: This is a system-generated email. Please do not reply to this email address.</p>

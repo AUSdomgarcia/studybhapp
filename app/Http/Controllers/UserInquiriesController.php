@@ -93,7 +93,7 @@ class UserInquiriesController extends Controller
         //
     }
 
-    public function send_inquiry(Request $request){
+    public function send_inquiry(Request $request){  // TEST ON USER'S POINT OF VIEW
         //validation here
         $rule = [
             "fullname" => "required",
@@ -108,22 +108,25 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
-        $mailer_thankyou = Mail::send('emails.pages.inquiry_thank_you', [ 'web_settings'=> [ 'thank-you-content' => '<h3>Thank you view.</h3>' ] ], 
+        $email_group = $this->get_email_group();
+        $thank_you_message = $email_group['default-thankyou-message'];
+
+        $mailer_thankyou = Mail::send('emails.pages.inquiry_thank_you', compact('thank_you_message'), 
             function ($message) use($request) {
-                $message->from('noreply@domain.ph', 'Domz Garcia');
+                $message->from('noreply@domain.ph', 'Bright Hope School');
                 $message->to($request->input('email'))->subject('Thank you');
             });
-        
-        $hasRecipient = false;
-        $recipients = 'dom.garcia@nuworks.ph;domgarciad@yahoo.com';
-        
-        if($hasRecipient){
+
+        $hasRecipient = $email_group['allow-recipient']['content'];
+        $recipients   = strip_tags($email_group['default-recipient']['content']);
+
+        if($hasRecipient == '1'){
             $mail_recipient = array_filter( explode( ";", $recipients ) );
             $data = $request->all();
-            
+
             $with_recipient_email = Mail::send('emails.pages.inquiry_content', compact('data'), 
                 function ($message) use($mail_recipient) {
-                    $message->from('noreply@domain.ph', 'Domz Garcia');
+                    $message->from('noreply@domain.ph', 'Bright Hope School');
                     $message->to($mail_recipient)->subject('New Inquiry Content');
                 });
         }
@@ -244,10 +247,12 @@ class UserInquiriesController extends Controller
     {   
         $rule = [
             "mail-recipient-id" => "required",
+            "allow-recipient" => "required",
             "default-recipient" => "required|max:1000"
         ];
         $friendly_names = [
             "mail-recipient-id" => "id",
+            "allow-recipient" => "allow recipient option",
             "default-recipient" => "<EMAIL>"
         ];
 
@@ -258,15 +263,24 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
-        $update_data = [
-                'content' => $request->input('default-recipient'),
-            ];
-            
-        WebSetting::find($request->input("mail-recipient-id"))
-                    ->where('key', '=', 'default-recipient')
-                    ->update($update_data);
+        $recipient_emails = [
+            'content' => $request->input('default-recipient'),
+        ];
 
-        Session::flash('recipient_updated', '1');
+        $dr = WebSetting::find($request->input("mail-recipient-id"))
+                    ->where('key', '=', 'default-recipient')
+                    ->update($recipient_emails);
+
+        $allow_recipient = [
+            'content' => $request->input('allow-recipient'),
+        ];
+
+        $ar = WebSetting::where('key', '=', 'allow-recipient')
+                    ->update($allow_recipient);
+
+        if($ar == 1 && $dr == 1){
+            Session::flash('recipient_updated', '1');
+        }
         return Redirect::back();
     }
 
@@ -290,18 +304,20 @@ class UserInquiriesController extends Controller
         if($validator->fails()){
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
-        
+
+        # Get Actual User
         $inquiry_user = Inquiry::select('full_name')
                     ->where('id','=', $request->input('mail-inquiry-id'))->first();
-
-        $moderator = array(
-                        "message" => "{$request->input('mail-inquiry-body')}",
+        # Get Content
+        $email_group = $this->get_email_group();
+        $moderator_content = array(
+                        "message" => $email_group['default-reply-message']['content'],
                         "full_name" => $inquiry_user->full_name,
                     );
 
-        $isReplied = Mail::send('emails.pages.inquiry_response_message', compact('moderator'), 
+        $mailer = Mail::send('emails.pages.inquiry_response_message', compact('moderator_content'), 
             function ($message) use($request) {
-                $message->from('noreply@domain.ph', 'Domz Garcia');
+                $message->from('noreply@domain.ph', 'Bright Hope School');
                 $message->to($request->input('mail-inquiry-email'))
                         ->subject($request->input('mail-inquiry-title'));
             });
@@ -314,6 +330,7 @@ class UserInquiriesController extends Controller
         $inquiry_response->save();
 
         Session::flash('reply_sent', '1');
+
         return Redirect::back();
     }
 }

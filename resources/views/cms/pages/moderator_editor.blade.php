@@ -2,6 +2,21 @@
 
 @section('page-title', 'IRIS | Edit Page')
 
+@section('styles')
+	<style type="text/css">
+		.code-like {
+			padding: 0 5px;
+			border:1px solid #ccc;
+			margin: 0 5px;
+			color: red;
+			background-color: #eee;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		}
+	</style>
+@endsection
+
 @section('content')
 	<div class="portlet box purple col-lg-12 col-md-12 col-xs-12">
 	    <div class="portlet-title">
@@ -18,13 +33,15 @@
 				<div class="tab-pane fade active in" id="reply-message-tab">
 					<br />
 					<div class="form-group">
+						<p><strong>Note: </strong>This email can be used if you want to reply on a certain inquiries.</p>
 						<form method="POST" action="{{ url('/admin/moderator_edit/update_reply') }}">
 							<input type="hidden" name="mail-reply-id" value="{{$data['default-reply-message']['id']}}">
 							{{ csrf_field() }}
 							@if(count($errors) > 0) 
 								@if($errors->first('default-reply-message'))
-									<small class="error"> * {{ $errors->first('default-reply-message') }} </small>
-									<br /><br />
+									<div class="alert alert-danger">
+										{{ $errors->first('default-reply-message') }}
+									</div>
 								@endif
 							@endif
 							<textarea class="form-control" id="default-reply-message" name="default-reply-message">
@@ -40,13 +57,15 @@
 				<div class="tab-pane fade" id="thank-you-message-tab">
 					<br />
 					<div class="form-group">
+						<p><strong>Note:</strong> This email will be sent automatically after a User inquires on your website.</p>
 						<form method="POST" action="{{ url('/admin/moderator_edit/update_thankyou') }}">
 							<input type="hidden" name="mail-thankyou-id" value="{{$data['default-thankyou-message']['id']}}">
 							{{ csrf_field() }}
 							@if(count($errors) > 0) 
 								@if($errors->first('default-thankyou-message'))
-									<small class="error"> * {{ $errors->first('default-thankyou-message') }} </small>
-									<br /><br />
+									<div class="alert alert-danger">
+										{{ $errors->first('default-thankyou-message') }}
+									</div>
 								@endif
 							@endif
 							<textarea class="form-control" id="default-thankyou-message" name="default-thankyou-message">
@@ -61,20 +80,39 @@
 				<!-- RECIPIENTS -->
 				<div class="tab-pane fade" id="recipient-tab">
 					<br />
-					<p><strong>Note:</strong> Add recipient with semicolon at the end of each email.</p>
 					<div class="form-group">
+						<p><strong>Note:</strong> Add recipient with semicolon<strong class="code-like">;</strong>in between of each email. When add recipient is selected, it will send emails to all stated recipients.</p>
 						<form method="POST" action="{{ url('/admin/moderator_edit/update_recipient') }}">
 							<input type="hidden" name="mail-recipient-id" value="{{$data['default-recipient']['id']}}">
 							{{ csrf_field() }}
 							@if(count($errors) > 0) 
 								@if($errors->first('default-recipient'))
-									<small class="error"> * {{ $errors->first('default-recipient') }} </small>
-									<br /><br />
+									<div class="alert alert-danger">
+										{{ $errors->first('default-recipient') }}
+									</div>
 								@endif
 							@endif
 							<textarea class="form-control" id="default-recipient" name="default-recipient">
 								{!! $data['default-recipient']['content'] !!}
 							</textarea>
+							<br />
+							
+							<label>
+								<input type="radio" name="allow-recipient" value="1" 
+									@if($data['allow-recipient']['content'] == '1')
+									checked
+									@endif
+								><small>Add Recipient</small>
+							</label>
+							&nbsp;
+							<label>
+								<input type="radio" name="allow-recipient" value="0" 
+									@if($data['allow-recipient']['content'] == '0')
+									checked
+									@endif
+								><small>Remove Recipient</small>
+							</label>
+							<br />
 							<br />
 							<button type="submit" class="btn purple">Update</button>
 						</form>	
