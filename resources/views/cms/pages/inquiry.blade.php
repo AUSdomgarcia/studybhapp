@@ -63,8 +63,10 @@
 			<div class="modal-content">
 				<form class="form-horizontal form-bordered" action="{{ url('/admin/inquiry/reply') }}" enctype="multipart/form-data"  method="POST">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+					<!--container-input-hidden-->
 					<input type="hidden" name="mail-inquiry-id" id="mail-inquiry-id" value="" />
 					<input type="hidden" name="mail-inquiry-email" id="mail-inquiry-email" value="" />
+					
 					<!-- Header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -309,14 +311,15 @@
 				$('#message-modal').modal('hide');
 				$(".show-reply-tool[data-id='" + $(this).attr('data-id') +"']").trigger("click");
 	        });
+	        
 	        /*
 			|---------------------
 			| #2 AFTER SEND REPLY
 			|---------------------
 			*/
-			$("body").on("click", "#show-reply-tool-send", function(){
+			// $("body").on("click", "#show-reply-tool-send", function(){
 	        	// $("#message-modal").toggle();
-	        });
+	        // });
 
 	     // end-of-doc-ready
 		});

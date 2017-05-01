@@ -16,6 +16,7 @@ class CreateInquiryResponsesTable extends Migration
         Schema::create('inquiries_response', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inquiry_id');
+            $table->integer('user_id');
             $table->string('title');
             $table->text('message');
             $table->timestamps();

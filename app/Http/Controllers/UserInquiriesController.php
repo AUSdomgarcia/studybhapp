@@ -106,10 +106,11 @@ class UserInquiriesController extends Controller
             return Redirect::back()->withErrors($validator)->withInput($request->all());
         }
 
-        $with_website_email = Mail::send('emails.pages.inquiry_thank_you', [ 'web_settings'=> [ 'thank-you-content' => '<h3>Thank you view.</h3>' ] ], function ($message) use($request) {
-            $message->from('noreply@domain.ph', 'Domz Garcia');
-            $message->to($request->input('email'))->subject('Thank you');
-        });
+        $mailer_thankyou = Mail::send('emails.pages.inquiry_thank_you', [ 'web_settings'=> [ 'thank-you-content' => '<h3>Thank you view.</h3>' ] ], 
+            function ($message) use($request) {
+                $message->from('noreply@domain.ph', 'Domz Garcia');
+                $message->to($request->input('email'))->subject('Thank you');
+            });
         
         $hasRecipient = false;
         $recipients = 'dom.garcia@nuworks.ph;domgarciad@yahoo.com';
@@ -118,10 +119,11 @@ class UserInquiriesController extends Controller
             $mail_recipient = array_filter( explode( ";", $recipients ) );
             $data = $request->all();
             
-            $with_recipient_email = Mail::send('emails.pages.inquiry_content', compact('data'), function ($message) use($mail_recipient) {
-                $message->from('noreply@domain.ph', 'Domz Garcia');
-                $message->to($mail_recipient)->subject('New Inquiry Content');
-            });
+            $with_recipient_email = Mail::send('emails.pages.inquiry_content', compact('data'), 
+                function ($message) use($mail_recipient) {
+                    $message->from('noreply@domain.ph', 'Domz Garcia');
+                    $message->to($mail_recipient)->subject('New Inquiry Content');
+                });
         }
         
         $inquiry = new Inquiry();
@@ -133,10 +135,10 @@ class UserInquiriesController extends Controller
         $inquiry->is_active = 1;
         $inquiry->save();
         
-        // if($return == 1 && $return_1 == count($mail_recipient)){
-        // Session::flash('send_success', '1');
-        // }
-        Session::flash('send_success', '1');
+        if($mailer_thankyou == 1){
+            Session::flash('send_success', '1');
+        }
+
         return Redirect::back();
     }
 
@@ -166,6 +168,44 @@ class UserInquiriesController extends Controller
     
     public function post_reply(Request $request)
     {
-        dd($request->input('_token'));
+        $rule = [
+            "mail-inquiry-id" => "required",
+            "mail-inquiry-title" => "required",
+            "mail-inquiry-body" => "required|max:1000"
+        ];
+     
+        $friendly_names = [
+            "mail-inquiry-id" => "id",
+            "mail-inquiry-title" => "title",
+            "mail-inquiry-body" => "body"
+        ];
+     
+        $validator = Validator::make($request->all(), $rule);
+        $validator->setAttributeNames($friendly_names);
+
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator)->withInput($request->all());
+        }
+        
+        $data = $request->all();
+        
+        $isReplied = Mail::send('emails.pages.inquiry_response_message', [ 'web_settings'=> [ 'moderator-message' => '<h3>This is moderator message.</h3>' ] ], 
+            function ($message) use($request) {
+                $message->from('noreply@domain.ph', 'Domz Garcia');
+                $message->to($request->input('mail-inquiry-email'))
+                        ->subject($request->input('mail-inquiry-title'));
+            });
+
+        $inquiry_response = new InquiryResponse;
+        $inquiry_response->inquiry_id = $request->input('mail-inquiry-id');
+        $inquiry_response->title =$request->input('mail-inquiry-title');
+        $inquiry_response->message = $request->input('mail-inquiry-body');
+        $inquiry_response->user_id = Auth::user()->id;
+        $inquiry_response->save();
+
+        if($isReplied == 1){
+            Session::flash('send_reply_success', '1');
+        }
+        return Redirect::back();
     }
 }
