@@ -89,7 +89,10 @@ class UserSettingsController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id','=',$id)->with('relation_role')->first();
+        $user = User::where('id', '=', $id)
+                ->with('relation_role')
+                ->first();
+
         return $user;
     }
 
@@ -146,8 +149,11 @@ class UserSettingsController extends Controller
             $update_data['password'] = bcrypt($request['user-password']);
         }
 
-        User::find($request->input('user-id'))->update($update_data);
+        User::find($request->input('user-id'))
+                    ->update($update_data);
+        
         Session::flash('success', '1');
+        
         return Redirect::back();
     }
 
