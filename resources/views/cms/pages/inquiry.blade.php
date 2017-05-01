@@ -68,7 +68,7 @@
 					<!-- Header -->
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h4 class="modal-title"><i class="fa fa-mail-reply"></i> Inquiry Reply</h4>
+						<h4 class="modal-title"><i class="fa fa-mail-reply"></i> Reply</h4>
 					</div>
 					<!-- Body -->
 					<div class="modal-body">
@@ -112,7 +112,7 @@
 				<!--header-->
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title"> <i class="fa fa-eye show-message"></i> Inquiry Message</h4>
+					<h4 class="modal-title"> <i class="fa fa-eye show-message"></i> Message</h4>
 				</div>
 				<!--body-->
 				<div class="modal-body">
@@ -134,7 +134,7 @@
 				</div>
 				<!--footer-->
 				<div class="modal-footer">
-					<input type="submit" class="btn purple" id="btn-reply-show-modal" data-id="" value="Reply">
+					<input type="submit" class="btn purple" id="btn-reply-in-message-modal" data-id="" value="Reply">
 					<button type="button" class="btn default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -155,7 +155,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title"><i class="fa fa-envelope"></i> Inquiry Thread</h4>
+					<h4 class="modal-title"><i class="fa fa fa-list"></i> Thread</h4>
 				</div>
 				<div class="modal-body">
 					<table class="table" id="thread-table">
@@ -219,9 +219,9 @@
 			        	data: 'id', 
 			        	name: 'id',
 			        	render: function ( data, type, full, meta ) {
-					      	return '<a data-id="'+ full.id +'" class="fa fa-eye show-message"></a>' + '&nbsp;' +
-									'<a data-id="'+ full.id +'" class="fa fa-mail-reply show-reply-tool"></a>' + '&nbsp;&nbsp;' +
-									'<a data-id="'+ full.id +'" class="fa fa-envelope show-thread"></a>';
+							return	'<a data-id="'+ full.id +'" class="fa fa-eye show-message"></a>'  + '&nbsp;&nbsp;' +
+					      			'<a data-id="'+ full.id +'" class="fa fa fa-list show-thread"></a>' + '&nbsp;&nbsp;' +
+									'<a data-id="'+ full.id +'" class="fa fa-mail-reply show-reply-tool"></a>';
 					    }
 			        },
 			        { data: 'full_name', name: 'full_name' },
@@ -293,7 +293,7 @@
 	        		var message = $('#message-modal');
  	        		message.find('#inquiry-name').html( data['full_name'] );
 	        		message.find('#inquiry-email').html(data['email']);
-	        		message.find('#btn-reply-show-modal').attr('data-id', data['id']);
+	        		message.find('#btn-reply-in-message-modal').attr('data-id', data['id']);
 	        		message.find('#inquiry-question').html(data['question']);
 	        		message.find('#inquiry-date').html(data['created_at']);
 	        		message.find('#inquiry-address').html(data['address']);
@@ -305,9 +305,9 @@
 			| #1 DYNAMIC_ID REPLY TRIGGER
 			|-----------------------------
 			*/
-			$("#btn-reply-show-modal").click(function(){
-				$('#message-modal').toggle();
-				$(".show-reply-tool[data-id='"+ $(this).attr("data-id") +"']").trigger("click");
+			$("#btn-reply-in-message-modal").click(function(){
+				$('#message-modal').modal('hide');
+				$(".show-reply-tool[data-id='" + $(this).attr('data-id') +"']").trigger("click");
 	        });
 	        /*
 			|---------------------
@@ -315,7 +315,7 @@
 			|---------------------
 			*/
 			$("body").on("click", "#show-reply-tool-send", function(){
-	        	$("#message-modal").toggle();
+	        	// $("#message-modal").toggle();
 	        });
 
 	     // end-of-doc-ready
