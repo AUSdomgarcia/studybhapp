@@ -164,6 +164,9 @@ class UserInquiriesController extends Controller
     }
 
     public function edit_content(){
+        
+
+        
         return view('cms.pages.moderator_editor');
     }
     
