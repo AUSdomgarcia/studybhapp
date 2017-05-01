@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Inquiry;
 use App\InquiryResponse;
+use App\WebSetting;
 
 use Redirect;
 use Validator;
@@ -164,12 +165,49 @@ class UserInquiriesController extends Controller
     }
 
     public function edit_content(){
-        
-
-        
-        return view('cms.pages.moderator_editor');
+        $email_settings = WebSetting::where('group', '=', 'email')->get();
+        $data = array();
+        foreach($email_settings as $key => $setting){
+            $data[(string)$setting['key']] = $setting;
+        }
+        // example: dd($data['default-recipient']['content']);
+        return view('cms.pages.moderator_editor', compact('data'));
     }
-    
+
+    public function update_reply(Request $request)
+    {
+        $rule = [
+            "mail-reply-id" => "required",
+            "default-reply-message" => "required|max:1000"
+        ];
+        $friendly_names = [
+            "mail-reply-id" => "id",
+            "default-reply-message" => "body"
+        ];
+        $validator = Validator::make($request->all(), $rule);
+        $validator->setAttributeNames($friendly_names);
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator)->withInput($request->all());
+        }
+    }
+
+    public function update_thankyou(Request $request)
+    {
+        $rule = [
+            "mail-thankyou-id" => "required",
+            "default-thankyou-message" => "required|max:1000"
+        ];
+        $friendly_names = [
+            "mail-thankyou-id" => "id",
+            "default-thankyou-message" => "body"
+        ];
+        $validator = Validator::make($request->all(), $rule);
+        $validator->setAttributeNames($friendly_names);
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator)->withInput($request->all());
+        }
+    }
+
     public function post_reply(Request $request)
     {
         $rule = [

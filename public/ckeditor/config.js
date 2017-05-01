@@ -8,15 +8,16 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 };
+
 var toolbar_group = {
-	toolbarGroups: [
-		{"name":"basicstyles","groups":["basicstyles"]},
-		{"name":"links","groups":["links"]},
-		{"name":"paragraph","groups":["list"]},
-		// {"name":"document","groups":["mode"]},
-		// {"name":"insert","groups":["insert"]},
-		{"name":"styles","groups":["styles"]},
-		// {"name":"about","groups":["about"]}
-	],
-	baseFloatZIndex : 20000
-}
+		toolbarGroups: [
+			{"name":"basicstyles","groups":["basicstyles"]},
+			{"name":"links","groups":["links"]},
+			{"name":"paragraph","groups":["list"]},
+			// {"name":"document","groups":["mode"]},
+			// {"name":"insert","groups":["insert"]},
+			{"name":"styles","groups":["styles"]},
+			// {"name":"about","groups":["about"]}
+		],
+		baseFloatZIndex : 0
+	}

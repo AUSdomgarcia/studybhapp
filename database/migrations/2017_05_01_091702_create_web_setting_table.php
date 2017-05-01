@@ -15,6 +15,7 @@ class CreateWebSettingTable extends Migration
     {
         Schema::create('web_settings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('group');
             $table->string('key');
             $table->string('content');
             $table->timestamps();

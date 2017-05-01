@@ -78,19 +78,22 @@ class DatabaseSeeder extends Seeder
         $mail_content = array(
                     array(
                       'key'=>'default-recipient',
-                      'content' => 'domgarcia.fp@gmail.com;ruthgpokemon@gmail.com;',
+                      'group'=> 'email',
+                      'content' => '<p>domgarcia.fp@gmail.com;ruthgpokemon@gmail.com;</p>',
                       'created_at' => date("Y-m-d H:i:s"),
                       'updated_at' => date("Y-m-d H:i:s")
                     ),
                     array(
                       'key'=>'default-reply-message',
-                      'content' => 'We received your feedback and alreay evaluating it to generate resolution.',
+                      'group'=> 'email',
+                      'content' => '<p>We received your feedback and alreay evaluating it to generate resolution.</p>',
                       'created_at' => date("Y-m-d H:i:s"),
                       'updated_at' => date("Y-m-d H:i:s")
                     ),
                     array(
                       'key'=>'default-thankyou-message',
-                      'content' => 'Hello User, Thank You for sending us your feedback.',
+                      'group'=> 'email',
+                      'content' => '<p>Hello User, Thank You for sending us your feedback.</p>',
                       'created_at' => date("Y-m-d H:i:s"),
                       'updated_at' => date("Y-m-d H:i:s")
                     )
